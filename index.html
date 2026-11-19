@@ -99,22 +99,31 @@
     <div id="depth-indicator"
         class="fixed left-2 sm:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center pointer-events-none select-none"
         aria-hidden="true">
-        <!-- ATOLLO IN CIMA CON BANDIERA SEGNASUB -->
+        <!-- ATOLLO IN CIMA CON BANDIERA SEGNASUB (Riferimento foto reale) -->
         <div class="flex flex-col items-center group relative">
-            <!-- Bandierina Segnasub -->
-            <svg class="w-4 h-4 text-red-500 mb-0.5 filter drop-shadow" viewBox="0 0 24 24" fill="none">
-                <line x1="6" y1="2" x2="6" y2="22" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" />
-                <path d="M6 3 L20 7.5 L6 12 Z" fill="#ef4444" />
-                <line x1="6" y1="3" x2="18" y2="10.5" stroke="#ffffff" stroke-width="1.5" />
+            <svg class="w-10 h-10 -mb-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" viewBox="0 0 48 44" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <!-- Asta bandiera -->
+                <line x1="18" y1="2" x2="18" y2="26" stroke="#e2e8f0" stroke-width="1.5" stroke-linecap="round" />
+                <!-- Bandiera Segnasub triangolare slanciata (Rossa con diagonale bianca) -->
+                <path d="M 18 2 L 36 8 L 18 18 Z" fill="#dc2626" />
+                <path d="M 18 2 L 23 2 L 36 10 L 33 12 L 18 4 Z" fill="#ffffff" />
+                <!-- Corpo Atollo (Toro rosso visto dal filo dell'acqua) -->
+                <ellipse cx="24" cy="27" rx="19" ry="6.5" fill="#dc2626" stroke="#991b1b" stroke-width="0.75" />
+                <!-- Riflesso superiore toro -->
+                <ellipse cx="24" cy="25.5" rx="17" ry="4.5" fill="#ef4444" />
+                <!-- Fascia / Inserto centrale bianco (come nella foto) -->
+                <path d="M 18 22 C 20 21.5 28 21.5 30 22 L 31 30.5 C 28 31 20 31 17 30.5 Z" fill="#ffffff"
+                    stroke="#cbd5e1" stroke-width="0.5" />
+                <rect x="22" y="23" width="4" height="5" rx="1" fill="#0f172a" />
+                <!-- Maniglie laterali nere -->
+                <rect x="4" y="26" width="2.5" height="2.5" rx="0.5" fill="#0f172a" />
+                <rect x="41.5" y="26" width="2.5" height="2.5" rx="0.5" fill="#0f172a" />
+                <!-- Filo dell'acqua / Increspatura marina -->
+                <path d="M 2 30 C 8 28.5 16 31.5 24 30 C 32 28.5 40 31.5 46 30" stroke="#38bdf8" stroke-width="1.5"
+                    stroke-linecap="round" opacity="0.8" />
             </svg>
-            <!-- Boa / Atollo da Apnea -->
-            <div
-                class="w-8 h-4 rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-red-600 border border-white/40 shadow-lg shadow-orange-500/30 flex items-center justify-center relative">
-                <div class="w-4 h-1.5 rounded-full bg-slate-950/80 border border-white/20"></div>
-                <div class="absolute -left-0.5 top-1/2 -translate-y-1/2 w-1 h-2 bg-white/40 rounded-sm"></div>
-                <div class="absolute -right-0.5 top-1/2 -translate-y-1/2 w-1 h-2 bg-white/40 rounded-sm"></div>
-            </div>
-            <span class="text-[9px] font-mono font-bold text-slate-400 mt-1 tracking-tight">0m</span>
+            <span class="text-[9px] font-mono font-bold text-slate-400 -mt-0.5 tracking-tight">0m</span>
         </div>
 
         <!-- CAVO GUIDA CON TACCHE DI PROFONDITÀ -->
@@ -150,19 +159,33 @@
             </div>
         </div>
 
-        <!-- PIATTELLO DI FONDO CON PIOMBO/CONTRAPPESO -->
+        <!-- PIATTELLO DI FONDO CON PIOMBO A SILURO (Riferimento variabile_misto) -->
         <div class="flex flex-col items-center">
-            <span class="text-[9px] font-mono font-bold text-slate-400 mb-1 tracking-tight">35m</span>
-            <!-- Piattello circolare bianco/metallico -->
-            <div
-                class="w-8 h-2 rounded-full bg-gradient-to-r from-slate-400 via-white to-slate-400 border border-white/70 shadow-lg shadow-white/20">
-            </div>
-            <!-- Moschettone / Attacco -->
-            <div class="w-1.5 h-1.5 border border-accent/70 rounded-xs -mt-0.5"></div>
-            <!-- Zavorra di fondo (piombo) -->
-            <div
-                class="w-3 h-3.5 rounded-b-md bg-gradient-to-b from-slate-500 to-slate-700 border border-white/30 shadow-md">
-            </div>
+            <span class="text-[9px] font-mono font-bold text-slate-400 mb-0.5 tracking-tight">35m</span>
+            <svg class="w-10 h-14 filter drop-shadow-[0_2px_5px_rgba(0,0,0,0.6)]" viewBox="0 0 44 60" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <!-- Piattello di Fondo bianco (disco di battuta) -->
+                <ellipse cx="22" cy="6" rx="17" ry="3.5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.75" />
+                <ellipse cx="22" cy="5" rx="15" ry="2.5" fill="#ffffff" />
+                <ellipse cx="22" cy="5" rx="2.5" ry="1" fill="#0f172a" />
+                <!-- Cavo / cordino di sospensione con moschettone -->
+                <line x1="22" y1="6" x2="22" y2="15" stroke="#14b8a6" stroke-width="1.5" stroke-linecap="round" />
+                <circle cx="22" cy="15" r="1.5" stroke="#f59e0b" stroke-width="1" fill="none" />
+                <!-- Piombo a siluro idrodinamico: cilindro sottile rastremato a punta -->
+                <path d="M 18.5 17 L 25.5 17 L 25.5 46 C 25.5 52 22 58 22 58 C 22 58 18.5 52 18.5 46 Z"
+                    fill="url(#siluroLead)" stroke="#1e293b" stroke-width="0.75" />
+                <!-- Riflesso metallico lungo il fusto del piombo -->
+                <line x1="20.5" y1="18" x2="20.5" y2="48" stroke="#94a3b8" stroke-width="0.75" stroke-linecap="round"
+                    opacity="0.9" />
+                <defs>
+                    <linearGradient id="siluroLead" x1="18.5" y1="17" x2="25.5" y2="17" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#475569" />
+                        <stop offset="35%" stop-color="#94a3b8" />
+                        <stop offset="70%" stop-color="#64748b" />
+                        <stop offset="100%" stop-color="#334155" />
+                    </linearGradient>
+                </defs>
+            </svg>
         </div>
     </div>
 
