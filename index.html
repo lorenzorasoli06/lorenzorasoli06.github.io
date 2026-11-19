@@ -95,21 +95,117 @@
 
 <body class="bg-abyss text-slate-200 font-sans antialiased selection:bg-accent selection:text-abyss">
 
+    <!-- SIMULATORE DI DISCESA SUL CAVO (INDICATORE PROFONDITÀ SCROLL) -->
+    <div id="depth-indicator"
+        class="fixed left-2 sm:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center pointer-events-none select-none"
+        aria-hidden="true">
+        <!-- ATOLLO IN CIMA CON BANDIERA SEGNASUB (Riferimento foto reale) -->
+        <div class="flex flex-col items-center group relative">
+            <svg class="w-10 h-10 -mb-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" viewBox="0 0 48 44" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <!-- Asta bandiera -->
+                <line x1="18" y1="2" x2="18" y2="26" stroke="#e2e8f0" stroke-width="1.5" stroke-linecap="round" />
+                <!-- Bandiera Segnasub triangolare slanciata (Rossa con diagonale bianca) -->
+                <path d="M 18 2 L 36 8 L 18 18 Z" fill="#dc2626" />
+                <path d="M 18 2 L 23 2 L 36 10 L 33 12 L 18 4 Z" fill="#ffffff" />
+                <!-- Corpo Atollo (Toro rosso visto dal filo dell'acqua) -->
+                <ellipse cx="24" cy="27" rx="19" ry="6.5" fill="#dc2626" stroke="#991b1b" stroke-width="0.75" />
+                <!-- Riflesso superiore toro -->
+                <ellipse cx="24" cy="25.5" rx="17" ry="4.5" fill="#ef4444" />
+                <!-- Fascia / Inserto centrale bianco (come nella foto) -->
+                <path d="M 18 22 C 20 21.5 28 21.5 30 22 L 31 30.5 C 28 31 20 31 17 30.5 Z" fill="#ffffff"
+                    stroke="#cbd5e1" stroke-width="0.5" />
+                <rect x="22" y="23" width="4" height="5" rx="1" fill="#0f172a" />
+                <!-- Maniglie laterali nere -->
+                <rect x="4" y="26" width="2.5" height="2.5" rx="0.5" fill="#0f172a" />
+                <rect x="41.5" y="26" width="2.5" height="2.5" rx="0.5" fill="#0f172a" />
+                <!-- Filo dell'acqua / Increspatura marina -->
+                <path d="M 2 30 C 8 28.5 16 31.5 24 30 C 32 28.5 40 31.5 46 30" stroke="#38bdf8" stroke-width="1.5"
+                    stroke-linecap="round" opacity="0.8" />
+            </svg>
+            <span class="text-[9px] font-mono font-bold text-slate-400 -mt-0.5 tracking-tight">0m</span>
+        </div>
+
+        <!-- CAVO GUIDA CON TACCHE DI PROFONDITÀ -->
+        <div id="cable-track" class="relative w-12 h-64 sm:h-72 my-1 flex justify-center">
+            <!-- Linea del cavo guida -->
+            <div class="w-0.5 h-full bg-gradient-to-b from-white/30 via-accent/40 to-white/30 rounded-full"></div>
+
+            <!-- Tacche dei metri (10m, 20m, 30m) -->
+            <div class="absolute top-[28.5%] left-1/2 -translate-x-1/2 flex items-center">
+                <div class="w-2.5 h-[1px] bg-white/30"></div>
+                <span class="text-[8px] font-mono text-slate-500 ml-1.5 opacity-60">10m</span>
+            </div>
+            <div class="absolute top-[57.1%] left-1/2 -translate-x-1/2 flex items-center">
+                <div class="w-2.5 h-[1px] bg-white/30"></div>
+                <span class="text-[8px] font-mono text-slate-500 ml-1.5 opacity-60">20m</span>
+            </div>
+            <div class="absolute top-[85.7%] left-1/2 -translate-x-1/2 flex items-center">
+                <div class="w-2.5 h-[1px] bg-white/30"></div>
+                <span class="text-[8px] font-mono text-slate-500 ml-1.5 opacity-60">30m</span>
+            </div>
+
+            <!-- APNEISTA CHE SCENDE SUL CAVO -->
+            <div id="cable-diver"
+                class="absolute left-1/2 -translate-x-1/2 will-change-transform flex items-center transition-transform duration-75 ease-out"
+                style="top: 0px;">
+                <img src="assets/freediver-cyan.png" alt="Apneista"
+                    class="h-10 w-auto object-contain filter drop-shadow-[0_0_6px_rgba(20,184,166,0.8)]">
+                <!-- Badge Profondità Dinamico -->
+                <span id="depth-counter"
+                    class="ml-1 px-1.5 py-0.5 rounded bg-abyss/90 border border-accent/40 text-[9px] font-mono font-bold text-accent shadow-md backdrop-blur-sm whitespace-nowrap">
+                    0m
+                </span>
+            </div>
+        </div>
+
+        <!-- PIATTELLO DI FONDO CON PIOMBO A SILURO (Riferimento variabile_misto) -->
+        <div class="flex flex-col items-center">
+            <span class="text-[9px] font-mono font-bold text-slate-400 mb-0.5 tracking-tight">35m</span>
+            <svg class="w-10 h-14 filter drop-shadow-[0_2px_5px_rgba(0,0,0,0.6)]" viewBox="0 0 44 60" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <!-- Piattello di Fondo bianco (disco di battuta) -->
+                <ellipse cx="22" cy="6" rx="17" ry="3.5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.75" />
+                <ellipse cx="22" cy="5" rx="15" ry="2.5" fill="#ffffff" />
+                <ellipse cx="22" cy="5" rx="2.5" ry="1" fill="#0f172a" />
+                <!-- Cavo / cordino di sospensione con moschettone -->
+                <line x1="22" y1="6" x2="22" y2="15" stroke="#14b8a6" stroke-width="1.5" stroke-linecap="round" />
+                <circle cx="22" cy="15" r="1.5" stroke="#f59e0b" stroke-width="1" fill="none" />
+                <!-- Piombo a siluro idrodinamico: cilindro sottile rastremato a punta -->
+                <path d="M 18.5 17 L 25.5 17 L 25.5 46 C 25.5 52 22 58 22 58 C 22 58 18.5 52 18.5 46 Z"
+                    fill="url(#siluroLead)" stroke="#1e293b" stroke-width="0.75" />
+                <!-- Riflesso metallico lungo il fusto del piombo -->
+                <line x1="20.5" y1="18" x2="20.5" y2="48" stroke="#94a3b8" stroke-width="0.75" stroke-linecap="round"
+                    opacity="0.9" />
+                <defs>
+                    <linearGradient id="siluroLead" x1="18.5" y1="17" x2="25.5" y2="17" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#475569" />
+                        <stop offset="35%" stop-color="#94a3b8" />
+                        <stop offset="70%" stop-color="#64748b" />
+                        <stop offset="100%" stop-color="#334155" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
     <!-- NAVIGATION -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-white/10 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <!-- Brand / Logo -->
                 <a href="#" class="flex items-center gap-3 group">
-                    <div
-                        class="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-ocean-600 flex items-center justify-center text-abyss font-extrabold text-xl shadow-lg shadow-accent/20 group-hover:scale-105 transition-transform">
-                        LR
+                    <div class="relative">
+                        <img src="assets/lorenzo-avatar.jpg" alt="Lorenzo Rasoli"
+                            class="w-11 h-11 rounded-full object-cover border-2 border-accent/60 shadow-lg shadow-accent/20 group-hover:scale-105 transition-transform duration-300">
+                        <span
+                            class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-abyss"></span>
                     </div>
                     <div>
                         <span class="block text-white font-bold tracking-tight text-lg leading-tight">Lorenzo
                             Rasoli</span>
-                        <span class="block text-xs text-accent font-medium tracking-wide uppercase">Istruttore Apnea
-                            SSI</span>
+                        <span class="block text-xs text-accent font-semibold tracking-wide uppercase">Istruttore Apnea
+                            SSI · 1° Livello</span>
                     </div>
                 </a>
 
@@ -175,55 +271,57 @@
         </div>
 
         <!-- Hero Content -->
-        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
-            <!-- Badge Credenziali -->
-            <div
-                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-medium text-ocean-200 mb-8 shadow-xl">
-                <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
-                <span>Istruttore Certificato SSI Freediving</span>
-                <span class="text-white/40">•</span>
-                <span class="text-slate-300">Torino</span>
-            </div>
-
-            <!-- Main Heading -->
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
-                Imparare ad ascoltarsi.<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent via-ocean-300 to-sky-200">
-                    Immergersi con consapevolezza.
-                </span><br>
-                Vivere il mare.
-            </h1>
-
-            <!-- Subtitle -->
-            <p class="max-w-2xl mx-auto text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-10">
-                Percorsi di apnea per adulti e ragazzi a Torino, sessioni tecniche a 10 metri nella piscina di Venaria
-                Reale e indimenticabili esperienze estive al mare.
-            </p>
-
-            <!-- Actions -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sui%20corsi%20di%20apnea"
-                    target="_blank" rel="noopener noreferrer"
-                    class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-accent hover:bg-teal-400 text-abyss font-bold text-base px-8 py-4 rounded-full shadow-lg shadow-accent/20 transition-all hover:scale-105">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                        <path
-                            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
-                    </svg>
-                    <span>Contattami su WhatsApp</span>
-                </a>
-                <a href="#corsi"
-                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold text-base px-8 py-4 rounded-full border border-white/20 backdrop-blur-sm transition-all">
-                    <span>Esplora i corsi</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </a>
-            </div>
-
-            <!-- Stats Bar / I Miei Numeri (Integrata, Senza Box Contornata) -->
-            <div class="mt-16 pt-8 border-t border-white/10 w-full max-w-5xl mx-auto">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+            <div class="max-w-4xl mx-auto">
+                <!-- Badge Credenziali -->
                 <div
-                    class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/15 text-left py-2">
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-medium text-ocean-200 mb-8 shadow-xl">
+                    <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
+                    <span>Istruttore Certificato SSI Freediving · 1° Livello</span>
+                    <span class="text-white/40">•</span>
+                    <span class="text-slate-300">Torino</span>
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
+                    Imparare ad ascoltarsi.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent via-ocean-300 to-sky-200">
+                        Immergersi con consapevolezza.
+                    </span><br>
+                    Vivere il mare.
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="max-w-2xl mx-auto text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-10">
+                    Percorsi di apnea per adulti e ragazzi a Torino, sessioni tecniche a 10 metri nella piscina di Venaria
+                    Reale e indimenticabili esperienze estive al mare.
+                </p>
+
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sui%20corsi%20di%20apnea"
+                        target="_blank" rel="noopener noreferrer"
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-accent hover:bg-teal-400 text-abyss font-bold text-base px-8 py-4 rounded-full shadow-lg shadow-accent/20 transition-all hover:scale-105">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                        </svg>
+                        <span>Contattami su WhatsApp</span>
+                    </a>
+                    <a href="#corsi"
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold text-base px-8 py-4 rounded-full border border-white/20 backdrop-blur-sm transition-all">
+                        <span>Esplora i corsi</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stats Bar / I Miei Numeri (Ampiezza Unificata max-w-7xl) -->
+            <div class="mt-16 pt-8 border-t border-white/10 w-full max-w-7xl mx-auto">
+                <div
+                    class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/15 text-left py-4 px-3 sm:px-6 bg-white/[0.03] backdrop-blur-md rounded-3xl border border-white/10 shadow-2xl">
                     <div class="py-3 px-3 sm:px-6">
                         <div class="flex items-baseline">
                             <span class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">35</span>
@@ -243,10 +341,9 @@
                     <div class="py-3 px-3 sm:px-6">
                         <div class="flex items-baseline">
                             <span
-                                class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight whitespace-nowrap">Istruttore</span>
+                                class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight whitespace-nowrap">1° Livello</span>
                         </div>
-                        <p class="text-xs sm:text-sm text-slate-400 mt-1.5 font-medium leading-snug">da luglio 2025 ·
-                            Freediver dal 2019</p>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1.5 font-medium leading-snug">Istruttore SSI Freediving · dal 2025</p>
                     </div>
                     <div class="py-3 px-3 sm:px-6">
                         <div class="flex items-baseline">
@@ -392,7 +489,7 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- CARD 1: RAGAZZI TORINO -->
+                <!-- CARD 1: RAGAZZI & ADULTI TORINO -->
                 <div
                     class="bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
                     <div>
@@ -407,9 +504,8 @@
                         <p class="text-accent text-sm font-medium mb-4">Piscina Sisport (Torino) · Martedì sera</p>
                         <p class="text-slate-300 text-sm leading-relaxed mb-6">
                             Un percorso pensato per tutti coloro che vogliono sviluppare una grande
-                            acquaticità e sicurezza. Il lavoro in vasca include,
-                            apnea dinamica con e senza pinne, tecniche di respirazione e sicurezza, in un
-                            ambiente stimolante ed esente da stress agonistico.
+                            acquaticità e sicurezza. Il lavoro in vasca include apnea dinamica con e senza pinne,
+                            tecniche di respirazione e sicurezza, in un ambiente stimolante ed esente da stress agonistico.
                         </p>
                         <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
                             <li class="flex items-center gap-2">
@@ -426,22 +522,14 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span>Istruttori qualificati sempre presenti in acqua</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Focus educativo: sicurezza, calma e spirito di squadra</span>
+                                <span>Focus educativo: sicurezza, calma e ascolto del proprio corpo</span>
                             </li>
                         </ul>
                     </div>
-                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sul%20corso%20ragazzi%20alla%20Sisport"
+                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sui%20corsi%20di%20apnea%20a%20Torino"
                         target="_blank" rel="noopener noreferrer"
                         class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-all">
-                        <span>Richiedi info per tuo figlio/a</span>
+                        <span>Richiedi informazioni</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -449,24 +537,23 @@
                     </a>
                 </div>
 
-                <!-- CARD 2: ADULTI & FOSSA 10M -->
+                <!-- CARD 2: SESSIONI TECNICHE VENARIA -->
                 <div
                     class="bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <span
                                 class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-900/60 text-emerald-300 border border-emerald-600/40">
-                                Adulti & Perfezionamento
+                                Tecnica e Profondità
                             </span>
-                            <span class="text-xs text-slate-400">Tutto l'anno</span>
+                            <span class="text-xs text-slate-400">Una volta al mese</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Sessioni Tecniche & Fossa 10m</h3>
-                        <p class="text-accent text-sm font-medium mb-4">Venaria Reale & Uscite Mare nei Weekend</p>
+                        <h3 class="text-2xl font-bold text-white mb-2">Sessioni Tecniche e Profondità</h3>
+                        <p class="text-accent text-sm font-medium mb-4">Sport Club Venaria · Venaria Reale</p>
                         <p class="text-slate-300 text-sm leading-relaxed mb-6">
-                            Per chi vuole iniziare da zero o affinare la propria tecnica di compensazione (Frenzel) e
-                            discesa sul cavo. Grazie all'accesso alla piscina profonda 10 metri di Venaria Reale, puoi
-                            allenare l'assetto costante e la decompressione in acqua limpida e a temperatura controllata
-                            prima di tuffarti in mare.
+                            Per chi vuole iniziare o affinare la propria tecnica di compensazione e
+                            discesa sul cavo. Grazie all'accesso alla piscina con fossa profonda 10 metri a Venaria Reale,
+                            puoi allenare l'assetto costante e la compensazione in acqua limpida e a temperatura controllata.
                         </p>
                         <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
                             <li class="flex items-center gap-2">
@@ -475,7 +562,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span>Sessioni mirate di compensazione e postura sul cavo</span>
+                                <span>Discesa sul cavo fino a una profondità di 10 metri</span>
                             </li>
                             <li class="flex items-center gap-2">
                                 <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
@@ -483,22 +570,14 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span>Rilascio brevetti internazionali SSI Freediving</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Weekend in mare (Golfo di Baratti, Liguria)</span>
+                                <span>Sessioni mirate su compensazione e postura</span>
                             </li>
                         </ul>
                     </div>
-                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sulle%20sessioni%20nella%20fossa%2010m%20o%20corsi%20adulti"
+                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sulle%20sessioni%20tecniche%20a%20Venaria%20Reale"
                         target="_blank" rel="noopener noreferrer"
                         class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-all">
-                        <span>Prenota o richiedi dettagli</span>
+                        <span>Scopri le date</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -506,41 +585,55 @@
                     </a>
                 </div>
 
-                <!-- CARD 3: CAMPUS ESTIVI -->
+                <!-- CARD 3: USCITE ED ESPERIENZE IN MARE -->
                 <div
                     class="bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <span
                                 class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-900/60 text-amber-300 border border-amber-600/40">
-                                Campus Estivi Giovani
+                                Acque Libere · Fine Settimana
                             </span>
-                            <span class="text-xs text-slate-400">Giugno – Luglio</span>
+                            <span class="text-xs text-slate-400">Giugno – Novembre</span>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Campus Nervi & Crociera a Vela</h3>
-                        <p class="text-accent text-sm font-medium mb-4">Genova Nervi · Portofino · Arcipelago Toscano
-                        </p>
+                        <h3 class="text-2xl font-bold text-white mb-2">Uscite ed Esperienze in Mare</h3>
+                        <p class="text-accent text-sm font-medium mb-4">Liguria e Toscana · Noli, Savona, Recco e Baratti</p>
                         <p class="text-slate-300 text-sm leading-relaxed mb-6">
-                            Le settimane estive in collaborazione con Katabasis e Sport&Natura:
+                            Uscite dedicate alla discesa sul cavo e all'esplorazione del mare. Dalle sessioni di
+                            profondità sul cavo alle immersioni ricreative lungo la costa ligure e toscana, per
+                            trasferire le competenze acquisite in piscina direttamente nel blu.
                         </p>
-                        <div class="space-y-4 mb-6">
-                            <div class="p-3 bg-white/5 rounded-xl border border-white/10">
-                                <h4 class="font-bold text-white text-sm mb-1">🌊 Settimana a Genova Nervi (Medie)</h4>
-                                <p class="text-xs text-slate-300">Avvicinamento all'apnea, uscite quotidiane in mare,
-                                    biologia marina ed escursione in gommone nell'Area Marina Protetta di Portofino.</p>
-                            </div>
-                            <div class="p-3 bg-white/5 rounded-xl border border-white/10">
-                                <h4 class="font-bold text-white text-sm mb-1">⛵ Crociera Vela & Apnea (Superiori /
-                                    Avanzati)</h4>
-                                <p class="text-xs text-slate-300">Una settimana a bordo di una barca a vela per imparare
-                                    la navigazione d'altura e praticare apnea profonda lungo le isole.</p>
-                            </div>
-                        </div>
+                        <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Discesa sul cavo in acque libere e compensazione in profondità</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Immersioni ricreative in Aree Marine Protette</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Convalida uscite in mare per certificazioni SSI Freediving</span>
+                            </li>
+                        </ul>
                     </div>
-                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sui%20campus%20estivi%20Nervi%20e%20Vela"
+                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sulle%20uscite%20in%20mare"
                         target="_blank" rel="noopener noreferrer"
                         class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-all">
-                        <span>Scopri le date dei Campus</span>
+                        <span>Richiedi informazioni</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -563,7 +656,7 @@
                         <p class="text-accent text-sm font-medium mb-4">Risoluzione Blocchi, Tecnica & Preparazione</p>
                         <p class="text-slate-300 text-sm leading-relaxed mb-6">
                             Percorsi individuali costruiti sulle tue esigenze specifiche: superamento di problemi di
-                            compensazione, gestione dell'ansia da profondità, preparazione per esami brevetti SSI o
+                            compensazione, preparazione per esami brevetti SSI o
                             perfezionamento dello stile di pinneggiata e assetto.
                         </p>
                         <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
@@ -581,22 +674,14 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span>Coaching specifico di compensazione a secco e in acqua</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Flessibilità totale di orari a Torino o Venaria</span>
+                                <span>Coaching specifico in base alle necessità</span>
                             </li>
                         </ul>
                     </div>
                     <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20concordare%20una%20lezione%20privata%20di%20apnea"
                         target="_blank" rel="noopener noreferrer"
                         class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-all">
-                        <span>Richiedi disponibilità</span>
+                        <span>Richiedi informazioni</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -630,7 +715,7 @@
                             </div>
                             <div>
                                 <p class="text-xs text-slate-400">Certificazione Internazionale</p>
-                                <p class="text-sm font-bold text-white">Freediving Instructor</p>
+                                <p class="text-sm font-bold text-white">Freediving Instructor · 1° Livello</p>
                             </div>
                         </div>
                     </div>
@@ -640,26 +725,24 @@
                 <div class="lg:col-span-7">
                     <span class="text-accent text-sm font-bold uppercase tracking-wider">La Mia Storia</span>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-6">
-                        Da allievo nei campus estivi a formatore di una nuova generazione di apneisti.
+                        Da allievo nei campi estivi a formatore di una nuova generazione di apneisti.
                     </h2>
                     <div class="space-y-4 text-slate-300 text-base leading-relaxed">
                         <p>
                             Il mio viaggio nell'apnea è iniziato esattamente dove oggi porto i miei allievi: da
-                            ragazzino, partecipando ai campus estivi a Genova Nervi. Lì ho scoperto che scendere
+                            ragazzino, partecipando ai campi estivi a Genova Nervi proposti da Sport&Natura e Katabasis. Lì ho scoperto che scendere
                             sott'acqua non significava "sfidare" il mare, ma entrare in una sintonia profonda con esso e
                             con il proprio corpo.
                         </p>
                         <p>
-                            Quella passione è cresciuta negli anni fino a trasformarsi in una scelta professionale: sono
-                            diventato **Istruttore certificato SSI Freediving**, collaborando a stretto contatto con
-                            **Francesco Escoffier**, con l'associazione **Sport&Natura** a Torino e con il circuito
-                            **Katabasis**.
+                            Quella passione è cresciuta negli anni fino a trasformarsi in una scelta professionale: nel 2025 sono
+                            diventato <b>Istruttore certificato SSI Freediving</b>, collaborando a stretto contatto con, con l'ASD <b>Sport&Natura</b> e 
+                            portando a Torino la realtà di  <b>Katabasis</b>.
                         </p>
                         <p>
-                            Oggi il mio obiettivo principale è insegnare l'apnea come **strumento di crescita personale,
-                            sicurezza e serenità**. Con i ragazzi delle medie e delle superiori metto al centro la
-                            fiducia in se stessi e la cura del compagno; con gli adulti ricerco la precisione tecnica e
-                            la decompressione mentale dai ritmi quotidiani.
+                            Oggi il mio obiettivo principale è insegnare l'apnea come <b>strumento di crescita personale</b>. 
+                            Con i ragazzi metto al centro la fiducia in se stessi e la gestione delle emozioni; 
+                            con gli adulti ricerco la precisione tecnica e il distacco mentale dai ritmi quotidiani.
                         </p>
                     </div>
 
@@ -708,12 +791,12 @@
                 <!-- FAQ 1 -->
                 <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
                     <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        <span>L'apnea è sicura per i ragazzi delle scuole medie e superiori?</span>
+                        <span>L'apnea è sicura per i ragazzi?</span>
                     </h3>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                        Assolutamente sì. Nei corsi giovani non si ricercano mai massimali o sforzi estremi.
-                        L'insegnamento si concentra su acquaticità, gioco in acqua, coordinazione, respirazione e mutuo
-                        soccorso tra compagni. L'istruttore è costantemente in acqua e segue gli allievi a distanza di
+                        Assolutamente sì. Nei corsi non si ricercano mai massimali o sforzi estremi.
+                        L'insegnamento si concentra su acquaticità, coordinazione, respirazione e tecnica.
+                        L'istruttore è costantemente in acqua e segue gli allievi a distanza di
                         sicurezza per tutto l'allenamento.
                     </p>
                 </div>
@@ -725,7 +808,7 @@
                     </h3>
                     <p class="text-slate-300 text-sm leading-relaxed">
                         No, basta avere una normale confidenza con l'acqua (saper galleggiare e spostarsi agevolmente).
-                        L'apnea insegna proprio a muoversi senza fatica e con la massima fluidità idrodinamica.
+                        L'apnea insegna proprio a muoversi senza fatica e con la massima fluidità idrodinamica e sicurezza.
                     </p>
                 </div>
 
@@ -735,9 +818,8 @@
                         <span>Quale attrezzatura è necessaria all'inizio?</span>
                     </h3>
                     <p class="text-slate-300 text-sm leading-relaxed">
-                        Per la piscina a Torino sono sufficienti costume, cuffia, maschera subacquea a basso volume e un
-                        paio di pinne (anche corte per iniziare). Per le uscite in mare o fossa consigliamo una muta
-                        umida (3mm o 5mm) che possiamo aiutare a scegliere o noleggiare.
+                        Per la piscina sono sufficienti costume, cuffia, maschera e un qualsiasi
+                        paio di pinne. Per le uscite in mare consiglio una muta che possiamo aiutare a scegliere o noleggiare.
                     </p>
                 </div>
 
@@ -762,11 +844,11 @@
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <span class="text-accent text-sm font-bold uppercase tracking-wider">Inizia il tuo percorso</span>
             <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-3 mb-6">
-                Facciamo il primo respiro sott'acqua insieme.
+                Facciamo il primo respiro insieme.
             </h2>
             <p class="max-w-2xl mx-auto text-slate-300 text-base sm:text-lg mb-10 leading-relaxed">
-                Che tu sia un genitore che desidera far provare l'apnea a proprio figlio, o un appassionato che vuole
-                perfezionarsi nella fossa da 10 metri, scrivimi senza impegno per qualsiasi informazione.
+                Che tu desideri provare l'apnea, o un appassionato che vuole
+                perfezionarsi, scrivimi senza impegno per qualsiasi informazione.
             </p>
 
             <!-- Box di contatto rapido -->
@@ -818,7 +900,7 @@
             </div>
 
             <p class="text-xs text-slate-500">
-                Torino · Venaria Reale · Genova Nervi · Didattica Certificata SSI Freediving
+                Torino · Didattica SSI Freediving
             </p>
         </div>
     </section>
@@ -853,19 +935,49 @@
 
     <!-- JAVASCRIPT PER MOBILE MENU & INTERAZIONI -->
     <script>
+        // Menu Mobile
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
-        });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // Simulatore Discesa Cavo Apnea (Scroll Depth Tracker)
+        (function() {
+            const cableTrack = document.getElementById('cable-track');
+            const diver = document.getElementById('cable-diver');
+            const depthDisplay = document.getElementById('depth-counter');
+            if (!cableTrack || !diver || !depthDisplay) return;
+
+            function updateDiverDepth() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = Math.max(0, Math.min(1, scrollHeight > 0 ? scrollTop / scrollHeight : 0));
+                
+                // Corsa disponibile (altezza del cavo meno altezza dell'icona apneista)
+                const usableTrack = cableTrack.clientHeight - 40;
+                const topPos = progress * usableTrack;
+                diver.style.transform = `translate(-50%, ${topPos}px)`;
+                
+                // Profondità simulata da 0m a 35m (massimale personale di Lorenzo)
+                const depthMeters = Math.round(progress * 35);
+                depthDisplay.textContent = depthMeters + 'm';
+            }
+
+            window.addEventListener('scroll', updateDiverDepth, { passive: true });
+            window.addEventListener('resize', updateDiverDepth);
+            updateDiverDepth();
+        })();
     </script>
 </body>
 
