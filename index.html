@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html lang="it" class="scroll-smooth">
+<html lang="it" class="scroll-smooth" style="color-scheme: dark;">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lorenzo Rasoli · Istruttore di Apnea SSI</title>
+    <meta name="theme-color" content="#031322">
+    <title>Lorenzo Rasoli · Istruttore di Apnea SSI a Torino</title>
     <meta name="description"
-        content="Percorsi di apnea per adulti e ragazzi a Torino, sessioni tecniche a 10 metri nella piscina di Venaria Reale e indimenticabili esperienze estive al mare. Istruttore certificato SSI.">
+        content="Percorsi di apnea per adulti e ragazzi a Torino (Piscina Sisport), sessioni tecniche a 10 metri nella piscina di Venaria Reale ed esperienze in mare con Katabasis e Sport&amp;Natura. Istruttore certificato SSI.">
     <meta name="author" content="Lorenzo Rasoli">
 
-    <!-- Open Graph / Meta Social -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Lorenzo Rasoli · Istruttore di Apnea SSI">
-    <meta property="og:description" content="Imparare ad ascoltarsi, immergersi con consapevolezza, vivere il mare.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/freediver-cyan.png">
 
-    <!-- Google Fonts: Plus Jakarta Sans -->
+    <!-- Open Graph / Meta Social (Anteprima WhatsApp & Instagram) -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:title" content="Lorenzo Rasoli · Istruttore di Apnea SSI">
+    <meta property="og:description"
+        content="Imparare ad ascoltarsi, immergersi con consapevolezza, vivere il mare. Corsi e allenamenti a Torino, fossa 10m a Venaria Reale e uscite in mare.">
+    <meta property="og:image" content="assets/hero-bg.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -63,118 +71,357 @@
         }
 
         .hero-gradient {
-            background: linear-gradient(180deg, rgba(3, 19, 34, 0.45) 0%, rgba(3, 19, 34, 0.85) 75%, #031322 100%);
+            background: linear-gradient(180deg, rgba(3, 19, 34, 0.42) 0%, rgba(3, 19, 34, 0.85) 75%, #031322 100%);
         }
 
+        /* Ken Burns slow breathing zoom on Hero background */
+        @keyframes hero-breathe {
+            0%,
+            100% {
+                transform: scale(1.04);
+            }
+
+            50% {
+                transform: scale(1.11);
+            }
+        }
+
+        .hero-bg-anim {
+            animation: hero-breathe 22s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        /* Dynamic Card Hover with marine glow & light sheen */
         .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .card-hover::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 70%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 210, 180, 0.08), transparent);
+            transform: skewX(-20deg);
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
         }
 
         .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 22px 35px -8px rgba(0, 0, 0, 0.5), 0 0 25px -5px rgba(0, 210, 180, 0.16);
+            border-color: rgba(0, 210, 180, 0.35);
+        }
+
+        .card-hover:hover::before {
+            transform: translateX(340%) skewX(-20deg);
+        }
+
+        /* Scroll Reveal Animations (Compositor-friendly transform & opacity only) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: translateY(24px) scale(0.96);
+            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.is-visible,
+        .reveal-scale.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .delay-100 {
+            transition-delay: 90ms;
+        }
+
+        .delay-200 {
+            transition-delay: 180ms;
+        }
+
+        .delay-300 {
+            transition-delay: 270ms;
+        }
+
+        .delay-400 {
+            transition-delay: 360ms;
+        }
+
+        /* Subtle rising underwater bubbles */
+        @keyframes float-bubble {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.85);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.35;
+            }
+
+            80% {
+                opacity: 0.25;
+            }
+
+            100% {
+                transform: translateY(-280px) translateX(14px) scale(1.15);
+                opacity: 0;
+            }
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 9999px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.55), rgba(0, 210, 180, 0.12));
+            pointer-events: none;
+            animation: float-bubble 11s infinite ease-in;
         }
 
         @keyframes pulse-subtle {
-
             0%,
             100% {
                 transform: scale(1);
             }
 
             50% {
-                transform: scale(1.05);
+                transform: scale(1.06);
             }
         }
 
         .pulse-subtle {
             animation: pulse-subtle 3s infinite ease-in-out;
         }
+
+        /* Active nav link underline indicator */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0.25rem;
+            right: 0.25rem;
+            bottom: -4px;
+            height: 2px;
+            border-radius: 2px;
+            background: #00D2B4;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.is-active::after {
+            transform: scaleX(1);
+        }
+
+        /* Gallery Cards: Dynamic hover lift, light sheen & continuous "breathing" zoom on hover */
+        @keyframes gallery-breathe {
+            0%,
+            100% {
+                transform: scale(1.06);
+            }
+
+            50% {
+                transform: scale(1.13);
+            }
+        }
+
+        .gallery-card {
+            position: relative;
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
+
+        .gallery-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -130%;
+            width: 75%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), rgba(0, 210, 180, 0.12), transparent);
+            transform: skewX(-22deg);
+            transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-7px) scale(1.015);
+            box-shadow: 0 24px 38px -10px rgba(0, 0, 0, 0.65), 0 0 28px -4px rgba(0, 210, 180, 0.25);
+            border-color: rgba(0, 210, 180, 0.55);
+        }
+
+        .gallery-card:hover::after {
+            transform: translateX(350%) skewX(-22deg);
+        }
+
+        .gallery-card img {
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.5s ease;
+            will-change: transform;
+        }
+
+        .gallery-card:hover img {
+            animation: gallery-breathe 4.2s ease-in-out infinite;
+            filter: brightness(1.06) contrast(1.03);
+        }
+
+        .gallery-card figcaption {
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                background-color 0.4s ease;
+        }
+
+        .gallery-card:hover figcaption p {
+            color: #00D2B4;
+        }
+
+        /* Accordion FAQ clean styling */
+        details > summary {
+            list-style: none;
+        }
+
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details[open] .faq-chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Lightbox transition */
+        #lightbox-modal {
+            transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        #lightbox-img {
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.22s ease-out;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto !important;
+            }
+
+            .pulse-subtle,
+            .animate-ping,
+            .hero-bg-anim,
+            .bubble {
+                animation: none !important;
+            }
+
+            .reveal,
+            .reveal-scale {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+            .card-hover,
+            .card-hover:hover,
+            .card-hover::before {
+                transition: none !important;
+                transform: none !important;
+            }
+        }
     </style>
 </head>
 
-<body class="bg-abyss text-slate-200 font-sans antialiased selection:bg-accent selection:text-abyss">
+<body class="bg-abyss text-slate-200 font-sans antialiased selection:bg-accent selection:text-abyss overflow-x-hidden">
+
+    <!-- SKIP LINK ACCESSIBILITÀ -->
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70] focus:px-4 focus:py-2 focus:rounded-xl focus:bg-accent focus:text-abyss focus:font-bold focus:shadow-lg">
+        Vai al contenuto principale
+    </a>
 
     <!-- SIMULATORE DI DISCESA SUL CAVO (INDICATORE PROFONDITÀ SCROLL) -->
     <div id="depth-indicator"
         class="fixed left-2 sm:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-center pointer-events-none select-none"
         aria-hidden="true">
-        <!-- ATOLLO IN CIMA CON BANDIERA SEGNASUB (Riferimento foto reale) -->
+        <!-- ATOLLO IN CIMA CON BANDIERA SEGNASUB -->
         <div class="flex flex-col items-center group relative">
             <svg class="w-10 h-10 -mb-1 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" viewBox="0 0 48 44" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
-                <!-- Asta bandiera -->
                 <line x1="18" y1="2" x2="18" y2="26" stroke="#e2e8f0" stroke-width="1.5" stroke-linecap="round" />
-                <!-- Bandiera Segnasub triangolare slanciata (Rossa con diagonale bianca) -->
                 <path d="M 18 2 L 36 8 L 18 18 Z" fill="#dc2626" />
                 <path d="M 18 2 L 23 2 L 36 10 L 33 12 L 18 4 Z" fill="#ffffff" />
-                <!-- Corpo Atollo (Toro rosso visto dal filo dell'acqua) -->
                 <ellipse cx="24" cy="27" rx="19" ry="6.5" fill="#dc2626" stroke="#991b1b" stroke-width="0.75" />
-                <!-- Riflesso superiore toro -->
                 <ellipse cx="24" cy="25.5" rx="17" ry="4.5" fill="#ef4444" />
-                <!-- Fascia / Inserto centrale bianco (come nella foto) -->
                 <path d="M 18 22 C 20 21.5 28 21.5 30 22 L 31 30.5 C 28 31 20 31 17 30.5 Z" fill="#ffffff"
                     stroke="#cbd5e1" stroke-width="0.5" />
                 <rect x="22" y="23" width="4" height="5" rx="1" fill="#0f172a" />
-                <!-- Maniglie laterali nere -->
                 <rect x="4" y="26" width="2.5" height="2.5" rx="0.5" fill="#0f172a" />
                 <rect x="41.5" y="26" width="2.5" height="2.5" rx="0.5" fill="#0f172a" />
-                <!-- Filo dell'acqua / Increspatura marina -->
                 <path d="M 2 30 C 8 28.5 16 31.5 24 30 C 32 28.5 40 31.5 46 30" stroke="#38bdf8" stroke-width="1.5"
                     stroke-linecap="round" opacity="0.8" />
             </svg>
-            <span class="text-[9px] font-mono font-bold text-slate-400 -mt-0.5 tracking-tight">0m</span>
+            <span class="text-[9px] font-mono font-bold text-slate-400 -mt-0.5 tracking-tight tabular-nums">0m</span>
         </div>
 
         <!-- CAVO GUIDA CON TACCHE DI PROFONDITÀ -->
         <div id="cable-track" class="relative w-12 h-64 sm:h-72 my-1 flex justify-center">
-            <!-- Linea del cavo guida -->
             <div class="w-0.5 h-full bg-gradient-to-b from-white/30 via-accent/40 to-white/30 rounded-full"></div>
 
             <!-- Tacche dei metri (10m, 20m, 30m) -->
             <div class="absolute top-[28.5%] left-1/2 -translate-x-1/2 flex items-center">
                 <div class="w-2.5 h-[1px] bg-white/30"></div>
-                <span class="text-[8px] font-mono text-slate-500 ml-1.5 opacity-60">10m</span>
+                <span class="text-[8px] font-mono text-slate-500 ml-1.5 opacity-60 tabular-nums">10m</span>
             </div>
             <div class="absolute top-[57.1%] left-1/2 -translate-x-1/2 flex items-center">
                 <div class="w-2.5 h-[1px] bg-white/30"></div>
-                <span class="text-[8px] font-mono text-slate-500 ml-1.5 opacity-60">20m</span>
+                <span class="text-[8px] font-mono text-slate-500 ml-1.5 opacity-60 tabular-nums">20m</span>
             </div>
             <div class="absolute top-[85.7%] left-1/2 -translate-x-1/2 flex items-center">
                 <div class="w-2.5 h-[1px] bg-white/30"></div>
-                <span class="text-[8px] font-mono text-slate-500 ml-1.5 opacity-60">30m</span>
+                <span class="text-[8px] font-mono text-slate-500 ml-1.5 opacity-60 tabular-nums">30m</span>
             </div>
 
             <!-- APNEISTA CHE SCENDE SUL CAVO -->
             <div id="cable-diver"
                 class="absolute left-1/2 -translate-x-1/2 will-change-transform flex items-center transition-transform duration-75 ease-out"
                 style="top: 0px;">
-                <img src="assets/freediver-cyan.png" alt="Apneista"
+                <img src="assets/freediver-cyan.png" alt="" width="203" height="575"
                     class="h-10 w-auto object-contain filter drop-shadow-[0_0_6px_rgba(20,184,166,0.8)]">
                 <!-- Badge Profondità Dinamico -->
                 <span id="depth-counter"
-                    class="ml-1 px-1.5 py-0.5 rounded bg-abyss/90 border border-accent/40 text-[9px] font-mono font-bold text-accent shadow-md backdrop-blur-sm whitespace-nowrap">
+                    class="ml-1 px-1.5 py-0.5 rounded bg-abyss/90 border border-accent/40 text-[9px] font-mono font-bold text-accent shadow-md backdrop-blur-sm whitespace-nowrap tabular-nums">
                     0m
                 </span>
             </div>
         </div>
 
-        <!-- PIATTELLO DI FONDO CON PIOMBO A SILURO (Riferimento variabile_misto) -->
+        <!-- PIATTELLO DI FONDO CON PIOMBO A SILURO -->
         <div class="flex flex-col items-center">
-            <span class="text-[9px] font-mono font-bold text-slate-400 mb-0.5 tracking-tight">35m</span>
+            <span class="text-[9px] font-mono font-bold text-slate-400 mb-0.5 tracking-tight tabular-nums">35m</span>
             <svg class="w-10 h-14 filter drop-shadow-[0_2px_5px_rgba(0,0,0,0.6)]" viewBox="0 0 44 60" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
-                <!-- Piattello di Fondo bianco (disco di battuta) -->
                 <ellipse cx="22" cy="6" rx="17" ry="3.5" fill="#f8fafc" stroke="#94a3b8" stroke-width="0.75" />
                 <ellipse cx="22" cy="5" rx="15" ry="2.5" fill="#ffffff" />
                 <ellipse cx="22" cy="5" rx="2.5" ry="1" fill="#0f172a" />
-                <!-- Cavo / cordino di sospensione con moschettone -->
                 <line x1="22" y1="6" x2="22" y2="15" stroke="#14b8a6" stroke-width="1.5" stroke-linecap="round" />
                 <circle cx="22" cy="15" r="1.5" stroke="#f59e0b" stroke-width="1" fill="none" />
-                <!-- Piombo a siluro idrodinamico: cilindro sottile rastremato a punta -->
                 <path d="M 18.5 17 L 25.5 17 L 25.5 46 C 25.5 52 22 58 22 58 C 22 58 18.5 52 18.5 46 Z"
                     fill="url(#siluroLead)" stroke="#1e293b" stroke-width="0.75" />
-                <!-- Riflesso metallico lungo il fusto del piombo -->
                 <line x1="20.5" y1="18" x2="20.5" y2="48" stroke="#94a3b8" stroke-width="0.75" stroke-linecap="round"
                     opacity="0.9" />
                 <defs>
@@ -190,40 +437,59 @@
     </div>
 
     <!-- NAVIGATION -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-white/10 transition-all duration-300">
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-white/10 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <!-- Brand / Logo -->
-                <a href="#" class="flex items-center gap-3 group">
+                <a href="#"
+                    class="flex items-center gap-3 group rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                     <div class="relative">
-                        <img src="assets/lorenzo-avatar.jpg" alt="Lorenzo Rasoli"
+                        <img src="assets/lorenzo-avatar.jpg" alt="Lorenzo Rasoli" width="400" height="400"
                             class="w-11 h-11 rounded-full object-cover border-2 border-accent/60 shadow-lg shadow-accent/20 group-hover:scale-105 transition-transform duration-300">
                         <span
                             class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-abyss"></span>
                     </div>
                     <div>
-                        <span class="block text-white font-bold tracking-tight text-lg leading-tight">Lorenzo
-                            Rasoli</span>
+                        <span class="block text-white font-bold tracking-tight text-lg leading-tight"
+                            translate="no">Lorenzo Rasoli</span>
                         <span class="block text-xs text-accent font-semibold tracking-wide uppercase">Istruttore Apnea
                             SSI · 1° Livello</span>
                     </div>
                 </a>
 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                    <a href="#filosofia" class="hover:text-accent transition-colors">Filosofia</a>
-                    <a href="#corsi" class="hover:text-accent transition-colors">Attività & Corsi</a>
-                    <a href="#chi-sono" class="hover:text-accent transition-colors">La Mia Storia</a>
-                    <a href="#faq" class="hover:text-accent transition-colors">FAQ</a>
-                    <a href="#contatti" class="hover:text-accent transition-colors">Contatti</a>
+                <div class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-300">
+                    <a href="#filosofia"
+                        class="nav-link hover:text-accent transition-colors rounded-lg px-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">Filosofia</a>
+                    <a href="#corsi"
+                        class="nav-link hover:text-accent transition-colors rounded-lg px-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">Attività
+                        &amp; Corsi</a>
+                    <a href="#galleria"
+                        class="nav-link hover:text-accent transition-colors rounded-lg px-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">Galleria
+                        &amp; Video</a>
+                    <a href="#chi-sono"
+                        class="nav-link hover:text-accent transition-colors rounded-lg px-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">La
+                        Mia Storia</a>
+                    <a href="#faq"
+                        class="nav-link hover:text-accent transition-colors rounded-lg px-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">FAQ</a>
+                    <a href="#contatti"
+                        class="nav-link hover:text-accent transition-colors rounded-lg px-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">Contatti</a>
                 </div>
 
-                <!-- CTA WhatsApp Header -->
-                <div class="hidden md:flex items-center gap-4">
+                <!-- CTA Header (Instagram + WhatsApp) -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="https://www.instagram.com/lorenzorasoli/" target="_blank" rel="noopener noreferrer"
+                        aria-label="Seguimi su Instagram"
+                        class="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
                     <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20ricevere%20informazioni%20sui%20corsi%20di%20apnea"
                         target="_blank" rel="noopener noreferrer"
-                        class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm px-5 py-2.5 rounded-full shadow-lg shadow-emerald-900/40 transition-all hover:scale-105">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm px-5 py-2.5 rounded-full shadow-lg shadow-emerald-900/40 transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                             <path
                                 d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
                         </svg>
@@ -233,9 +499,10 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none p-2"
-                        aria-label="Apri menu">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button id="mobile-menu-btn" type="button"
+                        class="text-slate-300 hover:text-white p-2 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                        aria-label="Apri menu di navigazione" aria-expanded="false" aria-controls="mobile-menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -246,678 +513,1106 @@
 
         <!-- Mobile Menu Panel -->
         <div id="mobile-menu" class="hidden md:hidden border-b border-white/10 px-4 pt-3 pb-6 bg-abyss/95">
-            <div class="flex flex-col space-y-4 text-base font-medium">
+            <div class="flex flex-col space-y-3 text-base font-medium">
                 <a href="#filosofia" class="mobile-link text-slate-300 hover:text-accent py-1">Filosofia</a>
-                <a href="#corsi" class="mobile-link text-slate-300 hover:text-accent py-1">Attività & Corsi</a>
-                <a href="#chi-sono" class="mobile-link text-slate-300 hover:text-accent py-1">Chi Sono</a>
+                <a href="#corsi" class="mobile-link text-slate-300 hover:text-accent py-1">Attività &amp; Corsi</a>
+                <a href="#galleria" class="mobile-link text-slate-300 hover:text-accent py-1">Galleria &amp; Video</a>
+                <a href="#chi-sono" class="mobile-link text-slate-300 hover:text-accent py-1">La Mia Storia</a>
                 <a href="#faq" class="mobile-link text-slate-300 hover:text-accent py-1">FAQ</a>
                 <a href="#contatti" class="mobile-link text-slate-300 hover:text-accent py-1">Contatti</a>
-                <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20ricevere%20informazioni%20sui%20corsi%20di%20apnea"
-                    target="_blank" rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl mt-2 shadow-lg">
-                    <span>Scrivimi su WhatsApp</span>
-                </a>
+                <div class="pt-2 flex flex-col gap-2.5">
+                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20ricevere%20informazioni%20sui%20corsi%20di%20apnea"
+                        target="_blank" rel="noopener noreferrer"
+                        class="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl shadow-lg">
+                        <span>Scrivimi su WhatsApp</span>
+                    </a>
+                    <a href="https://www.instagram.com/lorenzorasoli/" target="_blank" rel="noopener noreferrer"
+                        class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 text-white font-semibold py-2.5 rounded-xl border border-white/15">
+                        <span>Seguimi su Instagram (@lorenzorasoli)</span>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <!-- Background Image with Gradient Overlay -->
-        <div class="absolute inset-0 z-0">
-            <img src="assets/hero-bg.jpg" alt="Apnea subacquea nel blu"
-                class="w-full h-full object-cover object-center scale-105 filter brightness-75">
-            <div class="absolute inset-0 hero-gradient"></div>
-        </div>
-
-        <!-- Hero Content -->
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
-            <div class="max-w-4xl mx-auto">
-                <!-- Badge Credenziali -->
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-medium text-ocean-200 mb-8 shadow-xl">
-                    <span class="w-2 h-2 rounded-full bg-accent animate-ping"></span>
-                    <span>Istruttore Certificato SSI Freediving · 1° Livello</span>
-                    <span class="text-white/40">•</span>
-                    <span class="text-slate-300">Torino</span>
-                </div>
-
-                <!-- Main Heading -->
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
-                    Imparare ad ascoltarsi.<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent via-ocean-300 to-sky-200">
-                        Immergersi con consapevolezza.
-                    </span><br>
-                    Vivere il mare.
-                </h1>
-
-                <!-- Subtitle -->
-                <p class="max-w-2xl mx-auto text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-10">
-                    Percorsi di apnea per adulti e ragazzi a Torino, sessioni tecniche a 10 metri nella piscina di Venaria
-                    Reale e indimenticabili esperienze estive al mare.
-                </p>
-
-                <!-- Actions -->
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sui%20corsi%20di%20apnea"
-                        target="_blank" rel="noopener noreferrer"
-                        class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-accent hover:bg-teal-400 text-abyss font-bold text-base px-8 py-4 rounded-full shadow-lg shadow-accent/20 transition-all hover:scale-105">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                            <path
-                                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
-                        </svg>
-                        <span>Contattami su WhatsApp</span>
-                    </a>
-                    <a href="#corsi"
-                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold text-base px-8 py-4 rounded-full border border-white/20 backdrop-blur-sm transition-all">
-                        <span>Esplora i corsi</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </a>
-                </div>
+    <main id="main-content">
+        <!-- HERO SECTION -->
+        <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+            <!-- Background Image with Slow Breathing Zoom & Gradient Overlay -->
+            <div class="absolute inset-0 z-0">
+                <img src="assets/hero-bg.jpg" alt="Apnea subacquea sul cavo nel blu" width="3648" height="2736"
+                    fetchpriority="high"
+                    class="w-full h-full object-cover object-center hero-bg-anim filter brightness-75">
+                <div class="absolute inset-0 hero-gradient"></div>
             </div>
 
-            <!-- Stats Bar / I Miei Numeri (Ampiezza Unificata max-w-7xl) -->
-            <div class="mt-16 pt-8 border-t border-white/10 w-full max-w-7xl mx-auto">
-                <div
-                    class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/15 text-left py-4 px-3 sm:px-6 bg-white/[0.03] backdrop-blur-md rounded-3xl border border-white/10 shadow-2xl">
-                    <div class="py-3 px-3 sm:px-6">
-                        <div class="flex items-baseline">
-                            <span class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">35</span>
-                            <span class="text-xl text-accent font-bold ml-1">m</span>
-                        </div>
-                        <p class="text-xs sm:text-sm text-slate-400 mt-1.5 font-medium leading-snug">profondità
-                            personale</p>
-                    </div>
-                    <div class="py-3 px-3 sm:px-6">
-                        <div class="flex items-baseline">
-                            <span class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">5'05</span>
-                            <span class="text-xl text-accent font-bold ml-0.5">"</span>
-                        </div>
-                        <p class="text-xs sm:text-sm text-slate-400 mt-1.5 font-medium leading-snug">apnea statica
-                            personale</p>
-                    </div>
-                    <div class="py-3 px-3 sm:px-6">
-                        <div class="flex items-baseline">
-                            <span
-                                class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight whitespace-nowrap">1° Livello</span>
-                        </div>
-                        <p class="text-xs sm:text-sm text-slate-400 mt-1.5 font-medium leading-snug">Istruttore SSI Freediving · dal 2025</p>
-                    </div>
-                    <div class="py-3 px-3 sm:px-6">
-                        <div class="flex items-baseline">
-                            <span class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">13</span>
-                        </div>
-                        <p class="text-xs sm:text-sm text-slate-400 mt-1.5 font-medium leading-snug">certificazioni e
-                            brevetti personali</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- LOGHI PARTNER / NETWORK -->
-    <section class="py-12 bg-abyss/60 border-y border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p class="text-center text-xs uppercase tracking-widest text-slate-400 mb-8 font-semibold">Didattica &
-                collaborazioni</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto items-center">
-                <!-- Logo SSI Freediving -->
-                <div
-                    class="bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-2xl h-28 sm:h-32 px-6 py-4 flex items-center justify-center transition-all hover:border-accent/40 shadow-xl group">
-                    <img src="assets/logo-ssi-perfect.png" alt="SSI Freediving"
-                        class="max-h-16 sm:max-h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
-                </div>
-                <!-- Logo Sport&Natura -->
-                <div
-                    class="bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-2xl h-28 sm:h-32 px-6 py-4 flex items-center justify-center transition-all hover:border-accent/40 shadow-xl group">
-                    <img src="assets/logo-sport-natura-perfect.png" alt="ASD Sport&Natura"
-                        class="max-h-16 sm:max-h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
-                </div>
-                <!-- Logo Katabasis Torino -->
-                <div
-                    class="bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-2xl h-28 sm:h-32 px-6 py-4 flex items-center justify-center transition-all hover:border-accent/40 shadow-xl group">
-                    <img src="assets/logo-katabasis-dark.png" alt="Katabasis Freediving and Sailing Torino"
-                        class="max-h-16 sm:max-h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SEZIONE 1: FILOSOFIA DELL'APNEA -->
-    <section id="filosofia" class="py-24 relative bg-slate-950">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-accent text-sm font-bold uppercase tracking-wider">La Filosofia</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">
-                    Meno sforzo e più controllo.<br>
-                    <span class="text-slate-400 font-serif italic">L'apnea non è solo trattenere il respiro.</span>
-                </h2>
-                <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
-                    Spesso si immagina l'apnea come una sfida estrema o uno sforzo di resistenza. Il mio approccio è
-                    l'esatto opposto: ricerco la calma mentale, l'economia del movimento e il benessere in acqua,
-                    rispettando sempre i ritmi naturali del corpo.
-                </p>
+            <!-- Decorative Rising Underwater Bubbles -->
+            <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+                <span class="bubble w-2 h-2 left-[18%] bottom-10" style="animation-delay: 0s; animation-duration: 12s;"></span>
+                <span class="bubble w-3 h-3 left-[32%] bottom-4" style="animation-delay: 3.5s; animation-duration: 15s;"></span>
+                <span class="bubble w-1.5 h-1.5 left-[64%] bottom-12" style="animation-delay: 1.8s; animation-duration: 10s;"></span>
+                <span class="bubble w-2.5 h-2.5 left-[81%] bottom-6" style="animation-delay: 5.2s; animation-duration: 14s;"></span>
             </div>
 
-            <!-- 3 Pilastri -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Pilastro 1 -->
-                <div
-                    class="bg-abyss/80 border border-white/10 rounded-2xl p-8 card-hover relative overflow-hidden group">
+            <!-- Hero Content -->
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Badge Credenziali -->
                     <div
-                        class="w-14 h-14 rounded-xl bg-ocean-900/60 border border-ocean-700/50 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17.7 7.7A2.5 2.5 0 1 1 19 12H2M14.7 17.7A2.5 2.5 0 1 0 17 14H2M8 7a2 2 0 1 0-1.8 2.8H12">
-                            </path>
-                        </svg>
+                        class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-medium text-ocean-200 mb-8 shadow-xl">
+                        <span class="w-2 h-2 rounded-full bg-accent animate-ping" aria-hidden="true"></span>
+                        <span>Istruttore Certificato SSI Freediving · 1° Livello</span>
+                        <span class="text-white/40" aria-hidden="true">•</span>
+                        <span class="text-slate-300">Torino</span>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Respiro e rilassamento</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        L’apnea inizia in superficie, prima di immergersi. Il rilassamento diaframmatico abbassa il
-                        battito
-                        cardiaco e dissolve la tensione muscolare: sott'acqua si scoprono una pace e una presenza
-                        mentale
-                        uniche.
+
+                    <!-- Main Heading -->
+                    <h1
+                        class="reveal delay-100 text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 text-balance">
+                        Imparare ad ascoltarsi.<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent via-ocean-300 to-sky-200">
+                            Immergersi con consapevolezza.
+                        </span><br>
+                        Vivere il mare.
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <p
+                        class="reveal delay-200 max-w-2xl mx-auto text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-10 text-pretty">
+                        Percorsi di apnea per adulti e ragazzi a Torino, sessioni tecniche a 10&nbsp;metri nella piscina
+                        di Venaria Reale ed esperienze in mare in collaborazione con <span class="text-white font-medium"
+                            translate="no">Katabasis</span> e <span class="text-white font-medium"
+                            translate="no">Sport&amp;Natura</span>.
                     </p>
+
+                    <!-- Actions -->
+                    <div class="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sui%20corsi%20di%20apnea"
+                            target="_blank" rel="noopener noreferrer"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-accent hover:bg-teal-400 text-abyss font-bold text-base px-8 py-4 rounded-full shadow-lg shadow-accent/20 transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                            </svg>
+                            <span>Contattami su WhatsApp</span>
+                        </a>
+                        <a href="#corsi"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold text-base px-8 py-4 rounded-full border border-white/20 backdrop-blur-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>Esplora i corsi</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Pilastro 2 -->
-                <div
-                    class="bg-abyss/80 border border-white/10 rounded-2xl p-8 card-hover relative overflow-hidden group">
+                <!-- Stats Bar / I Miei Numeri (con Contatori Animati) -->
+                <div class="reveal delay-400 mt-16 pt-8 border-t border-white/10 w-full max-w-7xl mx-auto">
                     <div
-                        class="w-14 h-14 rounded-xl bg-ocean-900/60 border border-ocean-700/50 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
-                            </path>
-                            <circle cx="9" cy="7" r="4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            </circle>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M23 21v-2a4 4 0 0 0-3-3.87">
-                            </path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 3.13a4 4 0 0 1 0 7.75">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Sicurezza</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        In apnea la prima regola è chiara: <em>mai soli in acqua</em>. Grazie alla didattica SSI
-                        l’assistenza reciproca
-                        diventa un gesto naturale, fatto di attenzione, lucidità e rispetto: quando la sicurezza è
-                        condivisa, la mente è più libera.
-                    </p>
-                </div>
-
-                <!-- Pilastro 3 -->
-                <div
-                    class="bg-abyss/80 border border-white/10 rounded-2xl p-8 card-hover relative overflow-hidden group">
-                    <div
-                        class="w-14 h-14 rounded-xl bg-ocean-900/60 border border-ocean-700/50 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3">Tecnica ed efficienza</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Ogni tensione inutile consuma energia preziosa. Attraverso una pinneggiata precisa,
-                        un assetto curato e una compensazione dolce, il movimento si fa economico e fluido,
-                        trasformando la discesa in un gesto naturale.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SEZIONE 2: ATTIVITÀ E CORSI -->
-    <section id="corsi" class="py-24 bg-abyss relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-accent text-sm font-bold uppercase tracking-wider">Attività & Corsi</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">
-                    I percorsi formativi
-                </h2>
-                <p class="mt-4 text-slate-300 text-base sm:text-lg">
-                    Dagli allenamenti continuativi invernali a Torino fino alle esperienze estive nelle acque di
-                    Liguria e Toscana.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- CARD 1: RAGAZZI & ADULTI TORINO -->
-                <div
-                    class="bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span
-                                class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-900/60 text-sky-300 border border-sky-600/40">
-                                Ragazzi · Adulti
-                            </span>
-                            <span class="text-xs text-slate-400">Settembre – Maggio</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Scuola e Corsi di Apnea · Torino</h3>
-                        <p class="text-accent text-sm font-medium mb-4">Piscina Sisport (Torino) · Martedì sera</p>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
-                            Un percorso pensato per tutti coloro che vogliono sviluppare una grande
-                            acquaticità e sicurezza. Il lavoro in vasca include apnea dinamica con e senza pinne,
-                            tecniche di respirazione e sicurezza, in un ambiente stimolante ed esente da stress agonistico.
-                        </p>
-                        <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Didattica certificata con SSI</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Focus educativo: sicurezza, calma e ascolto del proprio corpo</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sui%20corsi%20di%20apnea%20a%20Torino"
-                        target="_blank" rel="noopener noreferrer"
-                        class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-all">
-                        <span>Richiedi informazioni</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- CARD 2: SESSIONI TECNICHE VENARIA -->
-                <div
-                    class="bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span
-                                class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-900/60 text-emerald-300 border border-emerald-600/40">
-                                Tecnica e Profondità
-                            </span>
-                            <span class="text-xs text-slate-400">Una volta al mese</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Sessioni Tecniche e Profondità</h3>
-                        <p class="text-accent text-sm font-medium mb-4">Sport Club Venaria · Venaria Reale</p>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
-                            Per chi vuole iniziare o affinare la propria tecnica di compensazione e
-                            discesa sul cavo. Grazie all'accesso alla piscina con fossa profonda 10 metri a Venaria Reale,
-                            puoi allenare l'assetto costante e la compensazione in acqua limpida e a temperatura controllata.
-                        </p>
-                        <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Discesa sul cavo fino a una profondità di 10 metri</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Sessioni mirate su compensazione e postura</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sulle%20sessioni%20tecniche%20a%20Venaria%20Reale"
-                        target="_blank" rel="noopener noreferrer"
-                        class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-all">
-                        <span>Scopri le date</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- CARD 3: USCITE ED ESPERIENZE IN MARE -->
-                <div
-                    class="bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span
-                                class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-900/60 text-amber-300 border border-amber-600/40">
-                                Acque Libere · Fine Settimana
-                            </span>
-                            <span class="text-xs text-slate-400">Giugno – Novembre</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Uscite ed Esperienze in Mare</h3>
-                        <p class="text-accent text-sm font-medium mb-4">Liguria e Toscana · Noli, Savona, Recco e Baratti</p>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
-                            Uscite dedicate alla discesa sul cavo e all'esplorazione del mare. Dalle sessioni di
-                            profondità sul cavo alle immersioni ricreative lungo la costa ligure e toscana, per
-                            trasferire le competenze acquisite in piscina direttamente nel blu.
-                        </p>
-                        <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Discesa sul cavo in acque libere e compensazione in profondità</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Immersioni ricreative in Aree Marine Protette</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Convalida uscite in mare per certificazioni SSI Freediving</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sulle%20uscite%20in%20mare"
-                        target="_blank" rel="noopener noreferrer"
-                        class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-all">
-                        <span>Richiedi informazioni</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- CARD 4: LEZIONI PRIVATE & COACHING -->
-                <div
-                    class="bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between mb-4">
-                            <span
-                                class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-900/60 text-purple-300 border border-purple-600/40">
-                                Personalizzato
-                            </span>
-                            <span class="text-xs text-slate-400">Su Richiesta</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">Lezioni Private & Coaching 1-to-1</h3>
-                        <p class="text-accent text-sm font-medium mb-4">Risoluzione Blocchi, Tecnica & Preparazione</p>
-                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
-                            Percorsi individuali costruiti sulle tue esigenze specifiche: superamento di problemi di
-                            compensazione, preparazione per esami brevetti SSI o
-                            perfezionamento dello stile di pinneggiata e assetto.
-                        </p>
-                        <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Video-analisi della pinneggiata e della postura</span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span>Coaching specifico in base alle necessità</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20concordare%20una%20lezione%20privata%20di%20apnea"
-                        target="_blank" rel="noopener noreferrer"
-                        class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-all">
-                        <span>Richiedi informazioni</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SEZIONE 3: CHI SONO (BIO) -->
-    <section id="chi-sono" class="py-24 bg-slate-950 border-t border-white/5 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Immagine Profilo / Subacquea -->
-                <div class="lg:col-span-5">
-                    <div class="relative">
-                        <div
-                            class="absolute -inset-4 bg-gradient-to-tr from-accent/20 to-ocean-600/20 rounded-3xl blur-2xl -z-10">
-                        </div>
-                        <div
-                            class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-abyss aspect-[4/5]">
-                            <img src="assets/chi-sono.jpg" alt="Lorenzo Rasoli Istruttore Apnea"
-                                class="w-full h-full object-cover object-center filter brightness-95 hover:scale-105 transition-transform duration-500">
-                        </div>
-                        <div
-                            class="absolute -bottom-6 -right-6 bg-abyss/90 border border-white/10 backdrop-blur-md p-4 rounded-2xl shadow-xl flex items-center gap-3">
-                            <div
-                                class="w-14 h-12 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center p-2 shadow-inner">
-                                <img src="assets/logo-ssi-badge.png" alt="SSI Freediving"
-                                    class="w-full h-auto object-contain">
+                        class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/15 text-left py-4 px-3 sm:px-6 bg-white/[0.03] backdrop-blur-md rounded-3xl border border-white/10 shadow-2xl">
+                        <div class="py-3 px-3 sm:px-6">
+                            <div class="flex items-baseline tabular-nums">
+                                <span data-counter-target="35"
+                                    class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">35</span>
+                                <span class="text-xl text-accent font-bold ml-1">m</span>
                             </div>
-                            <div>
-                                <p class="text-xs text-slate-400">Certificazione Internazionale</p>
-                                <p class="text-sm font-bold text-white">Freediving Instructor · 1° Livello</p>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-1.5 font-medium leading-snug">profondità
+                                personale</p>
+                        </div>
+                        <div class="py-3 px-3 sm:px-6">
+                            <div class="flex items-baseline tabular-nums">
+                                <span data-counter-time="305"
+                                    class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">5'05</span>
+                                <span class="text-xl text-accent font-bold ml-0.5">"</span>
                             </div>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-1.5 font-medium leading-snug">apnea statica
+                                personale</p>
+                        </div>
+                        <div class="py-3 px-3 sm:px-6">
+                            <div class="flex items-baseline">
+                                <span
+                                    class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight whitespace-nowrap">1°
+                                    Livello</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-1.5 font-medium leading-snug">Istruttore SSI
+                                Freediving · dal 2025</p>
+                        </div>
+                        <div class="py-3 px-3 sm:px-6">
+                            <div class="flex items-baseline tabular-nums">
+                                <span data-counter-target="13"
+                                    class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">13</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-1.5 font-medium leading-snug">certificazioni
+                                e brevetti personali</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </header>
 
-                <!-- Testo Bio -->
-                <div class="lg:col-span-7">
-                    <span class="text-accent text-sm font-bold uppercase tracking-wider">La Mia Storia</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-6">
-                        Da allievo nei campi estivi a formatore di una nuova generazione di apneisti.
+        <!-- LOGHI PARTNER / NETWORK -->
+        <section class="py-12 bg-abyss/60 border-y border-white/10" aria-label="Didattica e collaborazioni">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="reveal text-center text-xs uppercase tracking-widest text-slate-400 mb-8 font-semibold">
+                    Didattica &amp; collaborazioni</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto items-center">
+                    <!-- Logo SSI Freediving -->
+                    <div
+                        class="reveal delay-100 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-2xl h-28 sm:h-32 px-6 py-4 flex items-center justify-center transition-colors hover:border-accent/40 shadow-xl group">
+                        <img src="assets/logo-ssi-perfect.png" alt="SSI Freediving" width="516" height="125"
+                            loading="lazy"
+                            class="max-h-16 sm:max-h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <!-- Logo Sport&Natura -->
+                    <div
+                        class="reveal delay-200 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-2xl h-28 sm:h-32 px-6 py-4 flex items-center justify-center transition-colors hover:border-accent/40 shadow-xl group">
+                        <img src="assets/logo-sport-natura-perfect.png" alt="ASD Sport&amp;Natura" width="245"
+                            height="106" loading="lazy"
+                            class="max-h-16 sm:max-h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <!-- Logo Katabasis Torino -->
+                    <div
+                        class="reveal delay-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-2xl h-28 sm:h-32 px-6 py-4 flex items-center justify-center transition-colors hover:border-accent/40 shadow-xl group">
+                        <img src="assets/logo-katabasis-dark.png" alt="Katabasis Freediving and Sailing Torino"
+                            width="755" height="536" loading="lazy"
+                            class="max-h-16 sm:max-h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 1: FILOSOFIA DELL'APNEA -->
+        <section id="filosofia" class="py-24 scroll-mt-20 relative bg-slate-950">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-accent text-sm font-bold uppercase tracking-wider">La Filosofia</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 text-balance">
+                        Meno sforzo e più controllo.<br>
+                        <span class="text-slate-400 font-serif italic">L’apnea non è solo trattenere il respiro.</span>
                     </h2>
-                    <div class="space-y-4 text-slate-300 text-base leading-relaxed">
-                        <p>
-                            Il mio viaggio nell'apnea è iniziato esattamente dove oggi porto i miei allievi: da
-                            ragazzino, partecipando ai campi estivi a Genova Nervi proposti da Sport&Natura e Katabasis. Lì ho scoperto che scendere
-                            sott'acqua non significava "sfidare" il mare, ma entrare in una sintonia profonda con esso e
-                            con il proprio corpo.
-                        </p>
-                        <p>
-                            Quella passione è cresciuta negli anni fino a trasformarsi in una scelta professionale: nel 2025 sono
-                            diventato <b>Istruttore certificato SSI Freediving</b>, collaborando a stretto contatto con, con l'ASD <b>Sport&Natura</b> e 
-                            portando a Torino la realtà di  <b>Katabasis</b>.
-                        </p>
-                        <p>
-                            Oggi il mio obiettivo principale è insegnare l'apnea come <b>strumento di crescita personale</b>. 
-                            Con i ragazzi metto al centro la fiducia in se stessi e la gestione delle emozioni; 
-                            con gli adulti ricerco la precisione tecnica e il distacco mentale dai ritmi quotidiani.
+                    <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed text-pretty">
+                        Spesso si immagina l’apnea come una sfida estrema o uno sforzo di resistenza. Il mio approccio,
+                        ispirato alla scuola <span class="text-white font-semibold" translate="no">Katabasis</span>, è
+                        l’esatto opposto: ricerco la calma mentale, l’economia del movimento e il benessere in acqua,
+                        rispettando sempre i ritmi naturali del corpo.
+                    </p>
+                </div>
+
+                <!-- 3 Pilastri -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Pilastro 1 -->
+                    <div
+                        class="reveal delay-100 bg-abyss/80 border border-white/10 rounded-2xl p-8 card-hover relative overflow-hidden group">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-ocean-900/60 border border-ocean-700/50 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.7 7.7A2.5 2.5 0 1 1 19 12H2M14.7 17.7A2.5 2.5 0 1 0 17 14H2M8 7a2 2 0 1 0-1.8 2.8H12">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Respiro e rilassamento</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            L’apnea inizia in superficie, prima di immergersi. Il rilassamento diaframmatico abbassa il
+                            battito cardiaco e dissolve la tensione muscolare: sott’acqua si scoprono una pace e una
+                            presenza mentale uniche.
                         </p>
                     </div>
 
-                    <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap gap-4 items-center">
-                        <div class="flex items-center gap-2 text-sm text-slate-300">
-                            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Pilastro 2 -->
+                    <div
+                        class="reveal delay-200 bg-abyss/80 border border-white/10 rounded-2xl p-8 card-hover relative overflow-hidden group">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-ocean-900/60 border border-ocean-700/50 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2">
+                                </path>
+                                <circle cx="9" cy="7" r="4" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                </circle>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M23 21v-2a4 4 0 0 0-3-3.87">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 3.13a4 4 0 0 1 0 7.75">
+                                </path>
                             </svg>
-                            <span>Standard SSI Freediving</span>
                         </div>
-                        <div class="flex items-center gap-2 text-sm text-slate-300">
-                            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <h3 class="text-xl font-bold text-white mb-3">Sicurezza condivisa</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            In apnea la prima regola è chiara: <em>mai soli in acqua</em>. Grazie agli standard SSI
+                            l’assistenza reciproca diventa un gesto naturale, fatto di attenzione, lucidità e rispetto:
+                            quando la sicurezza è condivisa, la mente è più libera.
+                        </p>
+                    </div>
+
+                    <!-- Pilastro 3 -->
+                    <div
+                        class="reveal delay-300 bg-abyss/80 border border-white/10 rounded-2xl p-8 card-hover relative overflow-hidden group">
+                        <div
+                            class="w-14 h-14 rounded-xl bg-ocean-900/60 border border-ocean-700/50 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z">
+                                </path>
                             </svg>
-                            <span>Primo Soccorso & BLS-D</span>
                         </div>
-                        <div class="flex items-center gap-2 text-sm text-slate-300">
-                            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <h3 class="text-xl font-bold text-white mb-3">Tecnica ed efficienza</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Ogni tensione inutile consuma energia preziosa. Attraverso una pinneggiata precisa, un
+                            assetto curato e una compensazione dolce, il movimento si fa economico e fluido,
+                            trasformando la discesa in un gesto naturale.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 2: ATTIVITÀ E CORSI -->
+        <section id="corsi" class="py-24 scroll-mt-20 bg-abyss relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-accent text-sm font-bold uppercase tracking-wider">Attività &amp; Corsi</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 text-balance">
+                        I percorsi formativi
+                    </h2>
+                    <p class="mt-4 text-slate-300 text-base sm:text-lg text-pretty">
+                        Dagli allenamenti continuativi invernali a Torino fino alle sessioni profonde e alle uscite in
+                        mare in Liguria e Toscana.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- CARD 1: RAGAZZI & ADULTI TORINO -->
+                    <div
+                        class="reveal delay-100 bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-900/60 text-sky-300 border border-sky-600/40">
+                                    Ragazzi · Adulti
+                                </span>
+                                <span class="text-xs text-slate-400">Ottobre – Maggio</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Scuola e Corsi di Apnea · Torino</h3>
+                            <p class="text-accent text-sm font-medium mb-4">Piscina G. Usmiani (Sisport Torino) ·
+                                Martedì 20:00 – 21:30 e turni ragazzi</p>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                                Un percorso strutturato per sviluppare acquaticità, controllo e sicurezza. Il lavoro in
+                                vasca unisce apnea dinamica con e senza pinne, tecniche di respirazione e assistenza di
+                                coppia, in un ambiente accogliente ed esente da stress agonistico.
+                            </p>
+                            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Didattica certificata SSI (Pool Freediver, Junior e 1° Livello)</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Formula solo corso oppure stagione completa di allenamenti</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Possibilità di concordare una lezione di prova in piscina</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sui%20corsi%20di%20apnea%20alla%20Sisport%20di%20Torino"
+                            target="_blank" rel="noopener noreferrer"
+                            class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>Richiedi informazioni o prenota una prova</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                             </svg>
-                            <span>Approccio Pedagogico Positivo</span>
+                        </a>
+                    </div>
+
+                    <!-- CARD 2: SESSIONI TECNICHE VENARIA -->
+                    <div
+                        class="reveal delay-200 bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-900/60 text-emerald-300 border border-emerald-600/40">
+                                    Tecnica e Profondità
+                                </span>
+                                <span class="text-xs text-slate-400">Appuntamento mensile</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Sessioni Tecniche a 10&nbsp;Metri</h3>
+                            <p class="text-accent text-sm font-medium mb-4">Sport Club Venaria · Venaria Reale (TO)</p>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                                Per chi desidera impostare o affinare la compensazione e la discesa verticale sul cavo.
+                                Grazie alla fossa subacquea profonda 10&nbsp;metri a Venaria Reale, puoi allenare
+                                capovolta, assetto costante e rilassamento in acqua limpida e termicamente confortevole.
+                            </p>
+                            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Discesa sul cavo in fossa dedicata fino a 10&nbsp;metri</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Focus su compensazione Frenzel, capovolta e idrodinamicità</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Ponte ideale tra la piscina tradizionale e il mare aperto</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sulle%20prossime%20sessioni%20a%2010m%20a%20Venaria%20Reale"
+                            target="_blank" rel="noopener noreferrer"
+                            class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>Scopri le prossime date</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- CARD 3: USCITE ED ESPERIENZE IN MARE -->
+                    <div
+                        class="reveal delay-100 bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-900/60 text-amber-300 border border-amber-600/40">
+                                    Acque Libere · Weekend
+                                </span>
+                                <span class="text-xs text-slate-400">Mag – Nov</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Uscite ed Esperienze in Mare</h3>
+                            <p class="text-accent text-sm font-medium mb-4">Liguria e Toscana · Noli, Bergeggi, Portofino
+                                e Baratti</p>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                                Giornate e fine settimana dedicati alla discesa sul cavo e al piacere di vivere il mare
+                                in gruppo. Dalle sessioni tecniche sulle boe alle immersioni esplorative lungo la costa
+                                ligure e toscana, per portare nel blu tutto il lavoro svolto durante l’anno.
+                            </p>
+                            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Sessioni al cavo in acque libere in piccoli gruppi seguiti</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Immersioni ricreative (Bergeggi, Cristo degli Abissi a San Fruttuoso,
+                                        Baratti)</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Uscite valide per il completamento dei brevetti SSI Freediver</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sulle%20uscite%20in%20mare"
+                            target="_blank" rel="noopener noreferrer"
+                            class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>Richiedi informazioni</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- CARD 4: LEZIONI PRIVATE & COACHING -->
+                    <div
+                        class="reveal delay-200 bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-900/60 text-purple-300 border border-purple-600/40">
+                                    Personalizzato
+                                </span>
+                                <span class="text-xs text-slate-400">Su richiesta</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Lezioni Private &amp; Coaching 1-to-1</h3>
+                            <p class="text-accent text-sm font-medium mb-4">Risoluzione Blocchi, Tecnica &amp;
+                                Preparazione</p>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                                Sessioni individuali o in minime coppie costruite sulle tue necessità specifiche:
+                                sblocco della compensazione, revisione della tecnica di pinneggiata e postura, o
+                                preparazione mirata agli standard dei brevetti SSI.
+                            </p>
+                            <ul class="space-y-2.5 text-xs text-slate-300 border-t border-white/10 pt-4 mb-6">
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Video-analisi subacquea della pinneggiata e dell’assetto</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Esercizi mirati a secco e in acqua per la compensazione</span>
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    <span>Orari flessibili concordati in base alle tue disponibilità</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20concordare%20una%20lezione%20privata%20di%20apnea"
+                            target="_blank" rel="noopener noreferrer"
+                            class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>Concorda una sessione</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE GALLERIA AMBIENTE: IN ACQUA, IN PISCINA E IN MARE (CON LIGHTBOX ALTA RISOLUZIONE) -->
+        <section id="galleria" class="py-24 scroll-mt-20 bg-slate-950/70 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                    <div>
+                        <span class="text-accent text-sm font-bold uppercase tracking-wider">Galleria &amp; Video</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 text-balance">
+                            Dalla corsia in piscina ai 30&nbsp;metri nel blu
+                        </h2>
+                    </div>
+                    <p class="text-slate-400 text-sm sm:text-base max-w-md">
+                        Scorci reali dai nostri allenamenti alla Sisport di Torino, dalle discese sul cavo e dalle
+                        giornate in mare. <span class="text-accent font-medium">Clicca su qualsiasi foto per
+                            ingrandirla ad alta risoluzione.</span>
+                    </p>
+                </div>
+
+                <!-- RIGA 1: VIDEO VERTICALE -30m + BENTO GRID AZIONE -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Colonna Sinistra (4 col): Video CWT -30m Insta360 -->
+                    <figure
+                        class="reveal-scale lg:col-span-4 group relative rounded-2xl overflow-hidden border border-white/10 bg-abyss shadow-2xl flex flex-col justify-between aspect-[9/14] sm:aspect-[4/5] lg:aspect-auto">
+                        <video src="assets/io-cwt-30m-insta360.mp4" poster="assets/io-freeimmersion-risalita.jpg"
+                            controls playsinline preload="metadata"
+                            class="w-full h-full object-cover object-center bg-abyss">
+                            Il tuo browser non supporta la riproduzione video.
+                        </video>
+                        <figcaption
+                            class="pointer-events-none absolute top-0 inset-x-0 bg-gradient-to-b from-abyss/90 via-abyss/40 to-transparent p-5 flex items-center justify-between">
+                            <div>
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-accent/20 text-accent border border-accent/40 backdrop-blur-md">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                                    Video · CWT -30m
+                                </span>
+                                <p class="text-sm font-bold text-white mt-1.5 drop-shadow">Tuffo in assetto costante e
+                                    assistenza sul cavo</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+
+                    <!-- Colonna Destra (8 col): Griglia 2x2 Azione & Tecnica -->
+                    <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Card A: Respirazione su cavo Baratti -->
+                        <figure
+                            class="reveal-scale delay-100 gallery-card group relative rounded-2xl overflow-hidden border border-white/10 bg-abyss aspect-[4/3] cursor-zoom-in"
+                            data-lightbox-src="assets/io-respirazione-cavo-01.jpg"
+                            data-lightbox-tag="Fase 1 · Superficie"
+                            data-lightbox-caption="Rilassamento e ventilazione sul cavo nel Golfo di Baratti">
+                            <img src="assets/io-respirazione-cavo-01.jpg"
+                                alt="Lorenzo Rasoli durante la fase di rilassamento e respirazione in superficie prima del tuffo a Baratti"
+                                width="2800" height="2100" loading="lazy"
+                                class="w-full h-full object-cover object-center">
+                            <div
+                                class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-abyss/75 border border-white/15 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:bg-accent group-hover:text-abyss group-hover:scale-110 transition-all backdrop-blur-sm z-20">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6"></path>
+                                </svg>
+                            </div>
+                            <figcaption
+                                class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/95 via-abyss/60 to-transparent p-5 z-20">
+                                <span class="text-xs font-semibold text-accent uppercase tracking-wider">Fase 1 ·
+                                    Superficie</span>
+                                <p class="text-sm font-bold text-white mt-0.5 transition-colors">Rilassamento e ventilazione sul cavo</p>
+                            </figcaption>
+                        </figure>
+
+                        <!-- Card B: Free Immersion Risalita -->
+                        <figure
+                            class="reveal-scale delay-200 gallery-card group relative rounded-2xl overflow-hidden border border-white/10 bg-abyss aspect-[4/3] cursor-zoom-in"
+                            data-lightbox-src="assets/io-freeimmersion-risalita.jpg"
+                            data-lightbox-tag="Free Immersion"
+                            data-lightbox-caption="Acquaticità e risalita fluida lungo il cavo nel blu">
+                            <img src="assets/io-freeimmersion-risalita.jpg"
+                                alt="Lorenzo Rasoli in risalita verticale sul cavo in Free Immersion nel blu"
+                                width="2100" height="2800" loading="lazy"
+                                class="w-full h-full object-cover object-[center_28%]">
+                            <div
+                                class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-abyss/75 border border-white/15 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:bg-accent group-hover:text-abyss group-hover:scale-110 transition-all backdrop-blur-sm z-20">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6"></path>
+                                </svg>
+                            </div>
+                            <figcaption
+                                class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/95 via-abyss/60 to-transparent p-5 z-20">
+                                <span class="text-xs font-semibold text-accent uppercase tracking-wider">Free
+                                    Immersion</span>
+                                <p class="text-sm font-bold text-white mt-0.5 transition-colors">Acquaticità e risalita fluida lungo il
+                                    cavo</p>
+                            </figcaption>
+                        </figure>
+
+                        <!-- Card C: Io nel blu Croazia -->
+                        <figure
+                            class="reveal-scale delay-100 gallery-card group relative rounded-2xl overflow-hidden border border-white/10 bg-abyss aspect-[4/3] cursor-zoom-in"
+                            data-lightbox-src="assets/io-nel-blu-croazia.jpg" data-lightbox-tag="Acque Libere · Croazia"
+                            data-lightbox-caption="Sospensione e quiete mentale nel blu profondo">
+                            <img src="assets/io-nel-blu-croazia.jpg"
+                                alt="Lorenzo Rasoli sospeso nel blu profondo in Croazia con muta Katabasis" width="2048"
+                                height="1792" loading="lazy"
+                                class="w-full h-full object-cover object-center">
+                            <div
+                                class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-abyss/75 border border-white/15 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:bg-accent group-hover:text-abyss group-hover:scale-110 transition-all backdrop-blur-sm z-20">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6"></path>
+                                </svg>
+                            </div>
+                            <figcaption
+                                class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/95 via-abyss/60 to-transparent p-5 z-20">
+                                <span class="text-xs font-semibold text-accent uppercase tracking-wider">Acque
+                                    Libere</span>
+                                <p class="text-sm font-bold text-white mt-0.5 transition-colors">Sospensione e quiete mentale nel blu</p>
+                            </figcaption>
+                        </figure>
+
+                        <!-- Card D: Allenamento Piscina Sisport Torino (Sisport-01 con pala della pinna visibile) -->
+                        <figure
+                            class="reveal-scale delay-200 gallery-card group relative rounded-2xl overflow-hidden border border-white/10 bg-abyss aspect-[4/3] cursor-zoom-in"
+                            data-lightbox-src="assets/allenamento-sisport-01.jpg"
+                            data-lightbox-tag="Torino · Piscina G. Usmiani (Sisport)"
+                            data-lightbox-caption="Lavoro tecnico sulla pinneggiata e acquaticità in corsia">
+                            <img src="assets/allenamento-sisport-01.jpg"
+                                alt="Allenamento di tecnica di pinneggiata in piscina alla Sisport di Torino"
+                                width="2100" height="2800" loading="lazy"
+                                class="w-full h-full object-cover object-[center_58%]">
+                            <div
+                                class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-abyss/75 border border-white/15 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:bg-accent group-hover:text-abyss group-hover:scale-110 transition-all backdrop-blur-sm z-20">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6"></path>
+                                </svg>
+                            </div>
+                            <figcaption
+                                class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/95 via-abyss/60 to-transparent p-5 z-20">
+                                <span class="text-xs font-semibold text-accent uppercase tracking-wider">Torino ·
+                                    Piscina Sisport</span>
+                                <p class="text-sm font-bold text-white mt-0.5 transition-colors">Lavoro tecnico sulla pinneggiata in
+                                    corsia</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <!-- RIGA 2: PROFONDITÀ SUL CAVO, SPIRITO DI SQUADRA & ATTREZZATURA (4 COLONNE SIMMETRICHE) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+                    <!-- Foto 5: Io Free Immersion Discesa Baratti -->
+                    <figure
+                        class="reveal-scale delay-100 gallery-card group relative rounded-2xl overflow-hidden border border-white/10 bg-abyss aspect-[4/3] cursor-zoom-in"
+                        data-lightbox-src="assets/io-freeimmersion-baratti.jpg"
+                        data-lightbox-tag="Profondità · Golfo di Baratti"
+                        data-lightbox-caption="Discesa sul cavo verso il piattello di fondo nel blu di Baratti">
+                        <img src="assets/io-freeimmersion-baratti.jpg"
+                            alt="Lorenzo Rasoli in discesa verticale lungo il cavo verso il piattello di fondo a Baratti"
+                            width="2800" height="2100" loading="lazy"
+                            class="w-full h-full object-cover object-center">
+                        <div
+                            class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-abyss/75 border border-white/15 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:bg-accent group-hover:text-abyss group-hover:scale-110 transition-all backdrop-blur-sm z-20">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6"></path>
+                            </svg>
+                        </div>
+                        <figcaption
+                            class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/95 via-abyss/60 to-transparent p-5 z-20">
+                            <span class="text-xs font-semibold text-accent uppercase tracking-wider">Profondità ·
+                                Baratti</span>
+                            <p class="text-sm font-bold text-white mt-0.5 transition-colors">Discesa sul cavo verso il piattello</p>
+                        </figcaption>
+                    </figure>
+
+                    <!-- Foto 6: Io Atollo Baratti -->
+                    <figure
+                        class="reveal-scale delay-200 gallery-card group relative rounded-2xl overflow-hidden border border-white/10 bg-abyss aspect-[4/3] cursor-zoom-in"
+                        data-lightbox-src="assets/io-atollo-baratti.jpg" data-lightbox-tag="Golfo di Baratti"
+                        data-lightbox-caption="Assistenza e preparazione all'atollo prima della discesa">
+                        <img src="assets/io-atollo-baratti.jpg"
+                            alt="Lorenzo Rasoli alla boa atollo in superficie nel Golfo di Baratti" width="2800"
+                            height="2100" loading="lazy"
+                            class="w-full h-full object-cover object-center">
+                        <div
+                            class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-abyss/75 border border-white/15 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:bg-accent group-hover:text-abyss group-hover:scale-110 transition-all backdrop-blur-sm z-20">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6"></path>
+                            </svg>
+                        </div>
+                        <figcaption
+                            class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/95 via-abyss/60 to-transparent p-5 z-20">
+                            <span class="text-xs font-semibold text-accent uppercase tracking-wider">Golfo di
+                                Baratti</span>
+                            <p class="text-sm font-bold text-white mt-0.5 transition-colors">Assistenza e preparazione all’atollo</p>
+                        </figcaption>
+                    </figure>
+
+                    <!-- Foto 7: Gruppo Noli -->
+                    <figure
+                        class="reveal-scale delay-300 gallery-card group relative rounded-2xl overflow-hidden border border-white/10 bg-abyss aspect-[4/3] cursor-zoom-in"
+                        data-lightbox-src="assets/noli-gruppo-amici.jpg" data-lightbox-tag="Liguria · Noli"
+                        data-lightbox-caption="Condivisione e spirito di gruppo nelle uscite in mare">
+                        <img src="assets/noli-gruppo-amici.jpg"
+                            alt="Lorenzo Rasoli con il gruppo di apneisti sulla spiaggia di Noli" width="2800"
+                            height="2100" loading="lazy"
+                            class="w-full h-full object-cover object-center">
+                        <div
+                            class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-abyss/75 border border-white/15 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:bg-accent group-hover:text-abyss group-hover:scale-110 transition-all backdrop-blur-sm z-20">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6"></path>
+                            </svg>
+                        </div>
+                        <figcaption
+                            class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/95 via-abyss/60 to-transparent p-5 z-20">
+                            <span class="text-xs font-semibold text-accent uppercase tracking-wider">Liguria ·
+                                Noli</span>
+                            <p class="text-sm font-bold text-white mt-0.5 transition-colors">Condivisione e gruppo nelle uscite a mare</p>
+                        </figcaption>
+                    </figure>
+
+                    <!-- Foto 8: Io e Simone Katabasis Torino a Baratti -->
+                    <figure
+                        class="reveal-scale delay-400 gallery-card group relative rounded-2xl overflow-hidden border border-white/10 bg-abyss aspect-[4/3] cursor-zoom-in"
+                        data-lightbox-src="assets/io-e-simone-baratti.jpg"
+                        data-lightbox-tag="Katabasis Torino · Golfo di Baratti"
+                        data-lightbox-caption="Lorenzo e Simone al porticciolo di Baratti prima dell'uscita in gommone">
+                        <img src="assets/io-e-simone-baratti.jpg"
+                            alt="Lorenzo Rasoli e Simone con le magliette Katabasis al porticciolo di Baratti"
+                            width="2100" height="2800" loading="lazy"
+                            class="w-full h-full object-cover object-[center_42%]">
+                        <div
+                            class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-abyss/75 border border-white/15 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:bg-accent group-hover:text-abyss group-hover:scale-110 transition-all backdrop-blur-sm z-20">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6"></path>
+                            </svg>
+                        </div>
+                        <figcaption
+                            class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/95 via-abyss/60 to-transparent p-5 z-20">
+                            <span class="text-xs font-semibold text-accent uppercase tracking-wider">Katabasis
+                                Torino</span>
+                            <p class="text-sm font-bold text-white mt-0.5 transition-colors">Team istruttori al porticciolo di Baratti
+                            </p>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 3: CHI SONO (BIO) -->
+        <section id="chi-sono" class="py-24 scroll-mt-20 bg-slate-950 border-t border-white/5 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <!-- Immagine Profilo / Subacquea (Cliccabile in Lightbox) -->
+                    <div class="reveal-scale lg:col-span-5">
+                        <div class="relative">
+                            <div
+                                class="absolute -inset-4 bg-gradient-to-tr from-accent/20 to-ocean-600/20 rounded-3xl blur-2xl -z-10">
+                            </div>
+                            <figure
+                                class="gallery-card group relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-abyss aspect-[4/5] cursor-zoom-in"
+                                data-lightbox-src="assets/chi-sono.jpg"
+                                data-lightbox-tag="Lorenzo Rasoli · Istruttore SSI"
+                                data-lightbox-caption="Lorenzo Rasoli con muta Katabasis e pinne in carbonio Mantra">
+                                <img src="assets/chi-sono.jpg"
+                                    alt="Lorenzo Rasoli Istruttore di Apnea SSI con muta Katabasis e pinne in carbonio"
+                                    width="1211" height="1897" loading="lazy"
+                                    class="w-full h-full object-cover object-top filter brightness-95">
+                                <div
+                                    class="absolute top-4 right-4 w-9 h-9 rounded-full bg-abyss/75 border border-white/15 text-white flex items-center justify-center opacity-80 group-hover:opacity-100 group-hover:bg-accent group-hover:text-abyss group-hover:scale-110 transition-all backdrop-blur-sm z-20">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </figure>
+                            <div
+                                class="absolute -bottom-6 -right-4 sm:-right-6 bg-abyss/95 border border-white/10 backdrop-blur-md p-4 rounded-2xl shadow-xl flex items-center gap-3 pointer-events-none">
+                                <div
+                                    class="w-14 h-12 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center p-2 shadow-inner">
+                                    <img src="assets/logo-ssi-badge.png" alt="SSI Freediving" width="956" height="510"
+                                        loading="lazy" class="w-full h-auto object-contain">
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-400">Certificazione Internazionale</p>
+                                    <p class="text-sm font-bold text-white">Freediving Instructor · 1° Livello</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testo Bio -->
+                    <div class="reveal delay-100 lg:col-span-7">
+                        <span class="text-accent text-sm font-bold uppercase tracking-wider">La Mia Storia</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-6 text-balance">
+                            Da allievo nei campi estivi a formatore di una nuova generazione di apneisti.
+                        </h2>
+                        <div class="space-y-4 text-slate-300 text-base leading-relaxed">
+                            <p>
+                                Il mio viaggio nell’apnea è iniziato esattamente dove oggi porto i miei allievi: da
+                                ragazzino, partecipando ai campi estivi a Genova Nervi proposti da <strong
+                                    class="text-white font-semibold" translate="no">Sport&amp;Natura</strong> e <strong
+                                    class="text-white font-semibold" translate="no">Katabasis</strong>. Lì ho scoperto
+                                che scendere sott’acqua non significava “sfidare” il mare, ma entrare in una sintonia
+                                profonda con esso e con il proprio corpo.
+                            </p>
+                            <p>
+                                Quella passione è cresciuta negli anni fino a trasformarsi in una scelta professionale:
+                                nel 2025 sono diventato <strong class="text-white font-semibold">Istruttore certificato
+                                    SSI Freediving</strong>, collaborando a stretto contatto con l’ASD <strong
+                                    class="text-white font-semibold" translate="no">Sport&amp;Natura</strong> e portando
+                                a Torino la filosofia e la didattica di <strong class="text-white font-semibold"
+                                    translate="no">Katabasis</strong>.
+                            </p>
+                            <p>
+                                Oggi il mio obiettivo principale è insegnare l’apnea come <strong
+                                    class="text-white font-semibold">strumento di crescita personale</strong>. Con i
+                                ragazzi metto al centro la fiducia in se stessi, l’acquaticità e la gestione delle
+                                emozioni; con gli adulti ricerco la precisione tecnica e il distacco mentale dai ritmi
+                                quotidiani.
+                            </p>
+                        </div>
+
+                        <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap gap-4 items-center">
+                            <div class="flex items-center gap-2 text-sm text-slate-300">
+                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>Standard SSI Freediving</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-slate-300">
+                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>Primo Soccorso &amp; BLS-D</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-slate-300">
+                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>Approccio Pedagogico Positivo</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SEZIONE 4: FAQ (DOMANDE FREQUENTI PER GENITORI E ALLIEVI) -->
-    <section id="faq" class="py-24 bg-abyss border-t border-white/5">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-accent text-sm font-bold uppercase tracking-wider">FAQ</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">
-                    Domande Frequenti
-                </h2>
-                <p class="mt-4 text-slate-300 text-base">
-                    Tutto ciò che serve sapere prima di iniziare, per genitori e nuovi allievi.
+        <!-- SEZIONE 4: FAQ (ACCORDION INTERATTIVI PER GENITORI E ALLIEVI) -->
+        <section id="faq" class="py-24 scroll-mt-20 bg-abyss border-t border-white/5">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal text-center mb-16">
+                    <span class="text-accent text-sm font-bold uppercase tracking-wider">FAQ</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 text-balance">
+                        Domande Frequenti
+                    </h2>
+                    <p class="mt-4 text-slate-300 text-base">
+                        Tutto ciò che serve sapere prima di iniziare, per genitori e nuovi allievi.
+                    </p>
+                </div>
+
+                <div class="reveal delay-100 space-y-4">
+                    <!-- FAQ 1 -->
+                    <details open
+                        class="group bg-white/[0.04] hover:bg-white/[0.06] border border-white/10 rounded-2xl transition-colors">
+                        <summary
+                            class="cursor-pointer p-6 text-lg font-bold text-white flex items-center justify-between gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>L’apnea è sicura per i ragazzi? Quanti allievi seguite in acqua?</span>
+                            <svg class="faq-chevron w-5 h-5 text-accent flex-shrink-0 transition-transform duration-200"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="px-6 pb-6 text-slate-300 text-sm leading-relaxed border-t border-white/5 pt-4">
+                            Assolutamente sì. Nei corsi non si ricercano mai massimali o sforzi estremi: l’insegnamento
+                            si concentra su acquaticità, coordinazione, respirazione e tecnica. L’istruttore è
+                            costantemente in acqua con un rapporto allievi/istruttore ridotto secondo gli standard
+                            internazionali SSI (massimo 6:1 con minori in piscina e 4:1 in acque libere). Dai 12 ai 14
+                            anni è previsto il percorso dedicato <em>Junior Freediver</em>, mentre dai 15 anni compiuti
+                            si accede al brevetto <em>SSI Freediver</em> completo.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 2 -->
+                    <details
+                        class="group bg-white/[0.04] hover:bg-white/[0.06] border border-white/10 rounded-2xl transition-colors">
+                        <summary
+                            class="cursor-pointer p-6 text-lg font-bold text-white flex items-center justify-between gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>Posso fare una lezione di prova prima di iscrivermi?</span>
+                            <svg class="faq-chevron w-5 h-5 text-accent flex-shrink-0 transition-transform duration-200"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="px-6 pb-6 text-slate-300 text-sm leading-relaxed border-t border-white/5 pt-4">
+                            Certamente! È sempre possibile concordare una lezione di prova in piscina alla Sisport di
+                            Torino per conoscere l’ambiente e sperimentare le prime sensazioni in acqua. Per la prova
+                            iniziale l’attrezzatura specifica di base (maschera, boccaglio e pinne) può essere messa a
+                            disposizione direttamente dalla società.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 3 -->
+                    <details
+                        class="group bg-white/[0.04] hover:bg-white/[0.06] border border-white/10 rounded-2xl transition-colors">
+                        <summary
+                            class="cursor-pointer p-6 text-lg font-bold text-white flex items-center justify-between gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>Serve saper nuotare come atleti agonisti per partecipare?</span>
+                            <svg class="faq-chevron w-5 h-5 text-accent flex-shrink-0 transition-transform duration-200"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="px-6 pb-6 text-slate-300 text-sm leading-relaxed border-t border-white/5 pt-4">
+                            No, basta avere una normale confidenza con l’acqua e saper nuotare e galleggiare a proprio
+                            agio senza ausili. L’apnea insegna proprio a muoversi senza fatica, con la massima fluidità
+                            idrodinamica e il minimo dispendio di ossigeno.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 4 -->
+                    <details
+                        class="group bg-white/[0.04] hover:bg-white/[0.06] border border-white/10 rounded-2xl transition-colors">
+                        <summary
+                            class="cursor-pointer p-6 text-lg font-bold text-white flex items-center justify-between gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>Quale attrezzatura è necessaria all’inizio?</span>
+                            <svg class="faq-chevron w-5 h-5 text-accent flex-shrink-0 transition-transform duration-200"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="px-6 pb-6 text-slate-300 text-sm leading-relaxed border-t border-white/5 pt-4">
+                            Per la piscina sono sufficienti costume, cuffia, maschera, boccaglio e un paio di pinne
+                            (anche corte da nuoto, ottime per costruire la tecnica di base). Il mutino non è necessario
+                            in piscina, mentre per le uscite in mare ti guideremo nella scelta o nel noleggio
+                            dell’attrezzatura tramite l’associazione.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 5 -->
+                    <details
+                        class="group bg-white/[0.04] hover:bg-white/[0.06] border border-white/10 rounded-2xl transition-colors">
+                        <summary
+                            class="cursor-pointer p-6 text-lg font-bold text-white flex items-center justify-between gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>Che certificato medico è richiesto?</span>
+                            <svg class="faq-chevron w-5 h-5 text-accent flex-shrink-0 transition-transform duration-200"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="px-6 pb-6 text-slate-300 text-sm leading-relaxed border-t border-white/5 pt-4">
+                            Per gli allenamenti in piscina e per i corsi di 1° livello è richiesto il certificato medico
+                            di idoneità all’attività sportiva non agonistica con elettrocardiogramma (ECG).
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 5: CONTATTI & CALL TO ACTION FINALE -->
+        <section id="contatti"
+            class="py-24 scroll-mt-20 bg-gradient-to-b from-slate-950 to-abyss border-t border-white/10 relative overflow-hidden">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div class="reveal">
+                    <span class="text-accent text-sm font-bold uppercase tracking-wider">Inizia il tuo percorso</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-3 mb-6 text-balance">
+                        Facciamo il primo respiro insieme.
+                    </h2>
+                    <p class="max-w-2xl mx-auto text-slate-300 text-base sm:text-lg mb-10 leading-relaxed text-pretty">
+                        Che tu desideri provare l’apnea per la prima volta o sia già un appassionato che vuole
+                        perfezionarsi, scrivimi senza impegno per qualsiasi informazione.
+                    </p>
+                </div>
+
+                <!-- Box di contatto rapido (4 canali inclusa pagina Instagram) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-4xl mx-auto mb-12">
+                    <!-- WhatsApp Card -->
+                    <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20ricevere%20informazioni%20sui%20corsi%20di%20apnea"
+                        target="_blank" rel="noopener noreferrer"
+                        class="reveal delay-100 bg-abyss/90 border border-emerald-500/30 hover:border-emerald-500 p-6 rounded-2xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
+                        <div
+                            class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-bold text-white">WhatsApp</span>
+                        <span class="text-xs text-slate-400 mt-1">Risposta diretta in giornata</span>
+                    </a>
+
+                    <!-- Telefono Card -->
+                    <a href="tel:+393917922516"
+                        class="reveal delay-200 bg-abyss/90 border border-white/10 hover:border-accent p-6 rounded-2xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                        <div
+                            class="w-12 h-12 rounded-full bg-ocean-900/40 text-accent flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                </path>
+                            </svg>
+                        </div>
+                        <span class="text-sm font-bold text-white">Chiamata</span>
+                        <span class="text-xs text-slate-400 mt-1 tabular-nums">+39 391 7922516</span>
+                    </a>
+
+                    <!-- Instagram Card -->
+                    <a href="https://www.instagram.com/lorenzorasoli/" target="_blank" rel="noopener noreferrer"
+                        class="reveal delay-300 bg-abyss/90 border border-white/10 hover:border-pink-500/60 p-6 rounded-2xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400">
+                        <div
+                            class="w-12 h-12 rounded-full bg-pink-500/15 text-pink-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </div>
+                        <span class="text-sm font-bold text-white">Instagram</span>
+                        <span class="text-xs text-slate-400 mt-1" translate="no">@lorenzorasoli</span>
+                    </a>
+
+                    <!-- Email Card -->
+                    <a href="mailto:lorenzorasoli7@gmail.com?subject=Richiesta%20Informazioni%20Corsi%20Apnea"
+                        class="reveal delay-400 bg-abyss/90 border border-white/10 hover:border-ocean-400 p-6 rounded-2xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-400">
+                        <div
+                            class="w-12 h-12 rounded-full bg-ocean-900/40 text-ocean-300 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <span class="text-sm font-bold text-white">Email</span>
+                        <span class="text-xs text-slate-400 mt-1 truncate max-w-full">lorenzorasoli7@gmail.com</span>
+                    </a>
+                </div>
+
+                <p class="text-xs text-slate-500">
+                    Torino · Piscina G. Usmiani (Sisport) &amp; Venaria Reale · Didattica SSI Freediving
                 </p>
             </div>
-
-            <div class="space-y-4">
-                <!-- FAQ 1 -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        <span>L'apnea è sicura per i ragazzi?</span>
-                    </h3>
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        Assolutamente sì. Nei corsi non si ricercano mai massimali o sforzi estremi.
-                        L'insegnamento si concentra su acquaticità, coordinazione, respirazione e tecnica.
-                        L'istruttore è costantemente in acqua e segue gli allievi a distanza di
-                        sicurezza per tutto l'allenamento.
-                    </p>
-                </div>
-
-                <!-- FAQ 2 -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        <span>Serve saper nuotare come atleti agonisti per partecipare?</span>
-                    </h3>
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        No, basta avere una normale confidenza con l'acqua (saper galleggiare e spostarsi agevolmente).
-                        L'apnea insegna proprio a muoversi senza fatica e con la massima fluidità idrodinamica e sicurezza.
-                    </p>
-                </div>
-
-                <!-- FAQ 3 -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        <span>Quale attrezzatura è necessaria all'inizio?</span>
-                    </h3>
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        Per la piscina sono sufficienti costume, cuffia, maschera e un qualsiasi
-                        paio di pinne. Per le uscite in mare consiglio una muta che possiamo aiutare a scegliere o noleggiare.
-                    </p>
-                </div>
-
-                <!-- FAQ 4 -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        <span>Che certificato medico è richiesto?</span>
-                    </h3>
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        Per le attività in piscina e corsi base è richiesto il consueto certificato medico di idoneità
-                        all'attività sportiva non agonistica con elettrocardiogramma (ECG). Per attività avanzate o di
-                        profondità superiore indicheremo la tipologia specifica richiesta.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SEZIONE 5: CONTATTI & CALL TO ACTION FINALE -->
-    <section id="contatti"
-        class="py-24 bg-gradient-to-b from-slate-950 to-abyss border-t border-white/10 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <span class="text-accent text-sm font-bold uppercase tracking-wider">Inizia il tuo percorso</span>
-            <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-3 mb-6">
-                Facciamo il primo respiro insieme.
-            </h2>
-            <p class="max-w-2xl mx-auto text-slate-300 text-base sm:text-lg mb-10 leading-relaxed">
-                Che tu desideri provare l'apnea, o un appassionato che vuole
-                perfezionarsi, scrivimi senza impegno per qualsiasi informazione.
-            </p>
-
-            <!-- Box di contatto rapido -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
-                <!-- WhatsApp Card -->
-                <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20ricevere%20informazioni%20sui%20corsi%20di%20apnea"
-                    target="_blank" rel="noopener noreferrer"
-                    class="bg-abyss/90 border border-emerald-500/30 hover:border-emerald-500 p-6 rounded-2xl flex flex-col items-center card-hover group">
-                    <div
-                        class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                            <path
-                                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
-                        </svg>
-                    </div>
-                    <span class="text-sm font-bold text-white">WhatsApp</span>
-                    <span class="text-xs text-slate-400 mt-1">Risposta diretta in giornata</span>
-                </a>
-
-                <!-- Telefono Card -->
-                <a href="tel:+393917922516"
-                    class="bg-abyss/90 border border-white/10 hover:border-accent p-6 rounded-2xl flex flex-col items-center card-hover group">
-                    <div
-                        class="w-12 h-12 rounded-full bg-ocean-900/40 text-accent flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
-                            </path>
-                        </svg>
-                    </div>
-                    <span class="text-sm font-bold text-white">Chiamata</span>
-                    <span class="text-xs text-slate-400 mt-1">+39 391 7922516</span>
-                </a>
-
-                <!-- Email Card -->
-                <a href="mailto:lorenzorasoli7@gmail.com?subject=Richiesta%20Informazioni%20Corsi%20Apnea"
-                    class="bg-abyss/90 border border-white/10 hover:border-ocean-400 p-6 rounded-2xl flex flex-col items-center card-hover group">
-                    <div
-                        class="w-12 h-12 rounded-full bg-ocean-900/40 text-ocean-300 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                            </path>
-                        </svg>
-                    </div>
-                    <span class="text-sm font-bold text-white">Email</span>
-                    <span class="text-xs text-slate-400 mt-1">lorenzorasoli7@gmail.com</span>
-                </a>
-            </div>
-
-            <p class="text-xs text-slate-500">
-                Torino · Didattica SSI Freediving
-            </p>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- FOOTER -->
     <footer class="py-8 bg-abyss border-t border-white/5 text-xs text-slate-500">
         <div
             class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-                <p>© 2026 Lorenzo Rasoli · Istruttore di Apnea SSI. Tutti i diritti riservati.</p>
+                <p>© 2026 <span translate="no">Lorenzo Rasoli</span> · Istruttore di Apnea SSI. Tutti i diritti
+                    riservati.</p>
             </div>
-            <div class="flex items-center gap-6">
+            <div class="flex flex-wrap items-center justify-center gap-6">
                 <a href="#filosofia" class="hover:text-slate-300 transition-colors">Filosofia</a>
                 <a href="#corsi" class="hover:text-slate-300 transition-colors">Corsi</a>
+                <a href="#galleria" class="hover:text-slate-300 transition-colors">Galleria</a>
                 <a href="#chi-sono" class="hover:text-slate-300 transition-colors">Chi Sono</a>
                 <a href="#contatti" class="hover:text-slate-300 transition-colors">Contatti</a>
+                <a href="https://www.instagram.com/lorenzorasoli/" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-accent transition-colors inline-flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                    <span>Instagram</span>
+                </a>
             </div>
         </div>
     </footer>
@@ -925,59 +1620,329 @@
     <!-- FLOATING WHATSAPP BUTTON (Mobile & Desktop) -->
     <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20ricevere%20informazioni%20sui%20corsi%20di%20apnea"
         target="_blank" rel="noopener noreferrer"
-        class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white p-3.5 sm:px-5 sm:py-3.5 rounded-full shadow-2xl shadow-emerald-950/80 transition-all hover:scale-110 pulse-subtle"
+        class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white p-3.5 sm:px-5 sm:py-3.5 rounded-full shadow-2xl shadow-emerald-950/80 transition-transform duration-200 hover:scale-110 pulse-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         aria-label="Scrivimi su WhatsApp">
-        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
             <path
                 d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
         </svg>
         <span class="hidden sm:inline font-bold text-sm">Scrivimi su WhatsApp</span>
     </a>
 
-    <!-- JAVASCRIPT PER MOBILE MENU & INTERAZIONI -->
+    <!-- LIGHTBOX MODAL AD ALTA RISOLUZIONE -->
+    <div id="lightbox-modal"
+        class="fixed inset-0 z-[80] hidden opacity-0 bg-abyss/95 backdrop-blur-xl flex flex-col items-center justify-center p-3 sm:p-6 select-none overscroll-contain"
+        role="dialog" aria-modal="true" aria-label="Visualizzatore foto ad alta risoluzione">
+
+        <!-- Barra superiore Lightbox: contatore + pulsanti Zoom e Chiudi -->
+        <div class="w-full max-w-6xl flex items-center justify-between mb-3 px-2 z-10">
+            <span id="lightbox-counter"
+                class="text-xs font-mono font-bold text-accent bg-white/5 border border-white/10 px-3 py-1.5 rounded-full tabular-nums">
+                1 / 8
+            </span>
+            <div class="flex items-center gap-2">
+                <button id="lightbox-zoom-btn" type="button"
+                    class="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    aria-label="Attiva o disattiva zoom ad alta risoluzione">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6"></path>
+                    </svg>
+                </button>
+                <button id="lightbox-close-btn" type="button"
+                    class="p-2.5 rounded-full bg-white/10 hover:bg-accent hover:text-abyss text-white border border-white/15 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    aria-label="Chiudi foto (Esc)">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Area centrale con frecce Prev / Next e Immagine High-Res -->
+        <div class="relative w-full max-w-6xl flex-1 flex items-center justify-center overflow-hidden">
+            <!-- Freccia Precedente -->
+            <button id="lightbox-prev-btn" type="button"
+                class="absolute left-2 sm:left-4 z-20 p-3 rounded-full bg-abyss/80 hover:bg-accent hover:text-abyss text-white border border-white/15 shadow-xl transition-all hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                aria-label="Foto precedente">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+
+            <!-- Immagine Alta Risoluzione -->
+            <img id="lightbox-img" src="" alt=""
+                class="max-h-[75vh] sm:max-h-[80vh] max-w-full w-auto h-auto object-contain rounded-xl shadow-2xl border border-white/10 cursor-zoom-in">
+
+            <!-- Freccia Successiva -->
+            <button id="lightbox-next-btn" type="button"
+                class="absolute right-2 sm:right-4 z-20 p-3 rounded-full bg-abyss/80 hover:bg-accent hover:text-abyss text-white border border-white/15 shadow-xl transition-all hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                aria-label="Foto successiva">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Didascalia inferiore -->
+        <div class="w-full max-w-3xl text-center mt-3 px-4 z-10">
+            <span id="lightbox-tag" class="text-xs font-bold text-accent uppercase tracking-wider block"></span>
+            <p id="lightbox-caption" class="text-sm sm:text-base font-semibold text-white mt-0.5"></p>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT PER MOBILE MENU, ANIMAZIONI DINAMICHE & LIGHTBOX -->
     <script>
-        // Menu Mobile
+        // 1. Menu Mobile con supporto aria-expanded
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
         if (menuBtn && mobileMenu) {
             menuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                menuBtn.setAttribute('aria-expanded', String(!isHidden));
             });
 
             mobileLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
+                    menuBtn.setAttribute('aria-expanded', 'false');
                 });
             });
         }
 
-        // Simulatore Discesa Cavo Apnea (Scroll Depth Tracker)
-        (function() {
+        // 2. Simulatore Discesa Cavo Apnea (Scroll Depth Tracker)
+        (function () {
             const cableTrack = document.getElementById('cable-track');
             const diver = document.getElementById('cable-diver');
             const depthDisplay = document.getElementById('depth-counter');
             if (!cableTrack || !diver || !depthDisplay) return;
 
+            let usableTrack = cableTrack.clientHeight - 40;
+
+            function measureTrack() {
+                usableTrack = cableTrack.clientHeight - 40;
+                updateDiverDepth();
+            }
+
             function updateDiverDepth() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
                 const progress = Math.max(0, Math.min(1, scrollHeight > 0 ? scrollTop / scrollHeight : 0));
-                
-                // Corsa disponibile (altezza del cavo meno altezza dell'icona apneista)
-                const usableTrack = cableTrack.clientHeight - 40;
+
                 const topPos = progress * usableTrack;
                 diver.style.transform = `translate(-50%, ${topPos}px)`;
-                
+
                 // Profondità simulata da 0m a 35m (massimale personale di Lorenzo)
                 const depthMeters = Math.round(progress * 35);
                 depthDisplay.textContent = depthMeters + 'm';
             }
 
             window.addEventListener('scroll', updateDiverDepth, { passive: true });
-            window.addEventListener('resize', updateDiverDepth);
-            updateDiverDepth();
+            window.addEventListener('resize', measureTrack);
+            measureTrack();
+        })();
+
+        // 3. Scroll Reveal Dinamico & Contatori Numerici Animati
+        (function () {
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const revealEls = document.querySelectorAll('.reveal, .reveal-scale');
+
+            if (prefersReduced) {
+                revealEls.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+
+            const revealObserver = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+            revealEls.forEach(el => revealObserver.observe(el));
+
+            // Animazione Contatori (35m, 5'05", 13) - Più lenta (2300ms) e si riattiva ogni volta che torni in cima alla pagina
+            function animateCounter(el, targetValue, isTimeFormat) {
+                const duration = 2300;
+                const startTime = performance.now();
+                const animId = String(startTime);
+                el.dataset.animId = animId;
+
+                function tick(now) {
+                    if (el.dataset.animId !== animId) return;
+                    const elapsed = now - startTime;
+                    const t = Math.min(1, elapsed / duration);
+                    // Ease out quartic per una decelerazione finale morbida e graduale
+                    const eased = 1 - Math.pow(1 - t, 4);
+                    const current = Math.round(eased * targetValue);
+
+                    if (isTimeFormat) {
+                        const mins = Math.floor(current / 60);
+                        const secs = String(current % 60).padStart(2, '0');
+                        el.textContent = `${mins}'${secs}`;
+                    } else {
+                        el.textContent = String(current);
+                    }
+
+                    if (t < 1) {
+                        requestAnimationFrame(tick);
+                    }
+                }
+                requestAnimationFrame(tick);
+            }
+
+            const counterEls = document.querySelectorAll('[data-counter-target], [data-counter-time]');
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const el = entry.target;
+                    if (entry.isIntersecting) {
+                        if (el.dataset.counterTarget) {
+                            animateCounter(el, parseInt(el.dataset.counterTarget, 10), false);
+                        } else if (el.dataset.counterTime) {
+                            animateCounter(el, parseInt(el.dataset.counterTime, 10), true);
+                        }
+                    } else {
+                        // Reset quando esce dallo schermo così riparte da 0 ogni volta che si torna all'inizio della pagina
+                        el.dataset.animId = '';
+                        el.textContent = el.dataset.counterTime ? "0'00" : '0';
+                    }
+                });
+            }, { threshold: 0.25 });
+
+            counterEls.forEach(el => {
+                counterObserver.observe(el);
+            });
+
+            // Evidenziazione sezione attiva nella Navbar durante lo scroll
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`);
+                            link.classList.toggle('text-accent', link.getAttribute('href') === `#${id}`);
+                        });
+                    }
+                });
+            }, { rootMargin: '-35% 0px -55% 0px' });
+
+            sections.forEach(sec => navObserver.observe(sec));
+        })();
+
+        // 4. Lightbox Interattivo ad Alta Risoluzione (Galleria + Foto Bio)
+        (function () {
+            const items = Array.from(document.querySelectorAll('[data-lightbox-src]'));
+            const modal = document.getElementById('lightbox-modal');
+            const imgEl = document.getElementById('lightbox-img');
+            const tagEl = document.getElementById('lightbox-tag');
+            const captionEl = document.getElementById('lightbox-caption');
+            const counterEl = document.getElementById('lightbox-counter');
+            const closeBtn = document.getElementById('lightbox-close-btn');
+            const prevBtn = document.getElementById('lightbox-prev-btn');
+            const nextBtn = document.getElementById('lightbox-next-btn');
+            const zoomBtn = document.getElementById('lightbox-zoom-btn');
+
+            if (!modal || !imgEl || items.length === 0) return;
+
+            let currentIndex = 0;
+            let isZoomed = false;
+
+            function setZoom(zoomState) {
+                isZoomed = zoomState;
+                if (isZoomed) {
+                    imgEl.style.transform = 'scale(1.65)';
+                    imgEl.classList.remove('cursor-zoom-in');
+                    imgEl.classList.add('cursor-zoom-out');
+                } else {
+                    imgEl.style.transform = 'scale(1)';
+                    imgEl.classList.remove('cursor-zoom-out');
+                    imgEl.classList.add('cursor-zoom-in');
+                }
+            }
+
+            function showItem(index) {
+                currentIndex = (index + items.length) % items.length;
+                const el = items[currentIndex];
+                const src = el.getAttribute('data-lightbox-src');
+                const tag = el.getAttribute('data-lightbox-tag') || '';
+                const caption = el.getAttribute('data-lightbox-caption') || '';
+                const innerImg = el.querySelector('img');
+
+                setZoom(false);
+                imgEl.style.opacity = '0.35';
+                setTimeout(() => {
+                    imgEl.src = src;
+                    imgEl.alt = innerImg ? innerImg.alt : caption;
+                    tagEl.textContent = tag;
+                    captionEl.textContent = caption;
+                    counterEl.textContent = `${currentIndex + 1} / ${items.length}`;
+                    imgEl.style.opacity = '1';
+                }, 90);
+            }
+
+            function openLightbox(index) {
+                showItem(index);
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                requestAnimationFrame(() => {
+                    modal.classList.remove('opacity-0');
+                    modal.classList.add('opacity-100');
+                });
+                closeBtn.focus();
+            }
+
+            function closeLightbox() {
+                setZoom(false);
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    imgEl.src = '';
+                }, 260);
+            }
+
+            items.forEach((el, idx) => {
+                el.setAttribute('tabindex', '0');
+                el.setAttribute('role', 'button');
+                el.setAttribute('aria-label', `Ingrandisci foto: ${el.getAttribute('data-lightbox-caption') || ''}`);
+
+                el.addEventListener('click', () => openLightbox(idx));
+                el.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openLightbox(idx);
+                    }
+                });
+            });
+
+            closeBtn.addEventListener('click', closeLightbox);
+            prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showItem(currentIndex - 1); });
+            nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showItem(currentIndex + 1); });
+            zoomBtn.addEventListener('click', (e) => { e.stopPropagation(); setZoom(!isZoomed); });
+            imgEl.addEventListener('click', (e) => { e.stopPropagation(); setZoom(!isZoomed); });
+
+            // Chiudi cliccando sullo sfondo scuro
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal || e.target.parentElement === modal) {
+                    closeLightbox();
+                }
+            });
+
+            // Navigazione completa da tastiera (Esc, Freccia Sinistra/Destra)
+            window.addEventListener('keydown', (e) => {
+                if (modal.classList.contains('hidden')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') showItem(currentIndex - 1);
+                if (e.key === 'ArrowRight') showItem(currentIndex + 1);
+            });
         })();
     </script>
 </body>
