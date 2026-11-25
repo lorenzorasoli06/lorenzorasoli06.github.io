@@ -31,15 +31,21 @@
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
+        <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
                     },
                     colors: {
+                        abyss: '#060B13',
+                        surface: '#0B1320',
+                        raised: '#121D2F',
+                        accent: '#00D2B4',
+                        accentDark: '#00A890',
                         ocean: {
                             50: '#f0f9ff',
                             100: '#e0f2fe',
@@ -52,161 +58,76 @@
                             800: '#075985',
                             900: '#0c4a6e',
                             950: '#082f49',
-                        },
-                        abyss: '#031322',
-                        marine: '#0A2540',
-                        accent: '#00D2B4',
-                        tealLight: '#14b8a6',
+                        }
                     }
                 }
             }
         }
     </script>
 
-    <style>
+        <style>
         .glass-nav {
-            background: rgba(3, 19, 34, 0.85);
+            background: rgba(6, 11, 19, 0.88);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
 
         .hero-gradient {
-            background: linear-gradient(180deg, rgba(3, 19, 34, 0.42) 0%, rgba(3, 19, 34, 0.85) 75%, #031322 100%);
+            background: linear-gradient(180deg, rgba(6, 11, 19, 0.35) 0%, rgba(6, 11, 19, 0.8) 75%, #060B13 100%);
         }
 
-        /* Ken Burns slow breathing zoom on Hero background */
-        @keyframes hero-breathe {
-            0%,
-            100% {
-                transform: scale(1.04);
-            }
-
-            50% {
-                transform: scale(1.11);
-            }
-        }
-
-        .hero-bg-anim {
-            animation: hero-breathe 22s ease-in-out infinite;
-            will-change: transform;
-        }
-
-        /* Dynamic Card Hover with marine glow & light sheen */
+        /* Quiet Card Hover with subtle surface step */
         .card-hover {
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .card-hover::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -120%;
-            width: 70%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 210, 180, 0.08), transparent);
-            transform: skewX(-20deg);
-            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-            pointer-events: none;
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+                background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .card-hover:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 22px 35px -8px rgba(0, 0, 0, 0.5), 0 0 25px -5px rgba(0, 210, 180, 0.16);
-            border-color: rgba(0, 210, 180, 0.35);
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.18);
         }
 
-        .card-hover:hover::before {
-            transform: translateX(340%) skewX(-20deg);
-        }
-
-        /* Scroll Reveal Animations (Compositor-friendly transform & opacity only) */
+        /* Scroll Reveal Animations (Calm & lightweight) */
         .reveal {
             opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(16px);
+            transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
             will-change: opacity, transform;
         }
 
         .reveal-scale {
             opacity: 0;
-            transform: translateY(24px) scale(0.96);
-            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(12px);
+            transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
             will-change: opacity, transform;
         }
 
         .reveal.is-visible,
         .reveal-scale.is-visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
         .delay-100 {
-            transition-delay: 90ms;
+            transition-delay: 60ms;
         }
 
         .delay-200 {
-            transition-delay: 180ms;
+            transition-delay: 120ms;
         }
 
         .delay-300 {
-            transition-delay: 270ms;
+            transition-delay: 180ms;
         }
 
         .delay-400 {
-            transition-delay: 360ms;
+            transition-delay: 240ms;
         }
 
-        /* Subtle rising underwater bubbles */
-        @keyframes float-bubble {
-            0% {
-                transform: translateY(0) translateX(0) scale(0.85);
-                opacity: 0;
-            }
-
-            20% {
-                opacity: 0.35;
-            }
-
-            80% {
-                opacity: 0.25;
-            }
-
-            100% {
-                transform: translateY(-280px) translateX(14px) scale(1.15);
-                opacity: 0;
-            }
-        }
-
-        .bubble {
-            position: absolute;
-            border-radius: 9999px;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.55), rgba(0, 210, 180, 0.12));
-            pointer-events: none;
-            animation: float-bubble 11s infinite ease-in;
-        }
-
-        @keyframes pulse-subtle {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.06);
-            }
-        }
-
-        .pulse-subtle {
-            animation: pulse-subtle 3s infinite ease-in-out;
-        }
-
-        /* Active nav link underline indicator */
+        /* Active nav link indicator */
         .nav-link {
             position: relative;
         }
@@ -222,7 +143,7 @@
             background: #00D2B4;
             transform: scaleX(0);
             transform-origin: center;
-            transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .nav-link:hover::after,
@@ -230,68 +151,34 @@
             transform: scaleX(1);
         }
 
-        /* Gallery Cards: Dynamic hover lift, light sheen & continuous "breathing" zoom on hover */
-        @keyframes gallery-breathe {
-            0%,
-            100% {
-                transform: scale(1.06);
-            }
-
-            50% {
-                transform: scale(1.13);
-            }
-        }
-
+        /* Gallery Cards: Quiet hover lift & smooth slight scale */
         .gallery-card {
             position: relative;
-            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.22s cubic-bezier(0.22, 1, 0.36, 1);
             will-change: transform;
         }
 
-        .gallery-card::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -130%;
-            width: 75%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), rgba(0, 210, 180, 0.12), transparent);
-            transform: skewX(-22deg);
-            transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-            pointer-events: none;
-            z-index: 10;
-        }
-
         .gallery-card:hover {
-            transform: translateY(-7px) scale(1.015);
-            box-shadow: 0 24px 38px -10px rgba(0, 0, 0, 0.65), 0 0 28px -4px rgba(0, 210, 180, 0.25);
-            border-color: rgba(0, 210, 180, 0.55);
-        }
-
-        .gallery-card:hover::after {
-            transform: translateX(350%) skewX(-22deg);
+            transform: translateY(-2px);
+            border-color: rgba(0, 210, 180, 0.4);
         }
 
         .gallery-card img {
-            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                filter 0.5s ease;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
             will-change: transform;
         }
 
         .gallery-card:hover img {
-            animation: gallery-breathe 4.2s ease-in-out infinite;
-            filter: brightness(1.06) contrast(1.03);
+            transform: scale(1.025);
         }
 
         .gallery-card figcaption {
-            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                background-color 0.4s ease;
+            transition: background-color 0.2s ease;
         }
 
         .gallery-card:hover figcaption p {
-            color: #00D2B4;
+            color: #ffffff;
         }
 
         /* Accordion FAQ clean styling */
@@ -309,24 +196,17 @@
 
         /* Lightbox transition */
         #lightbox-modal {
-            transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: opacity 0.24s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         #lightbox-img {
-            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.22s ease-out;
+            transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.18s ease-out;
         }
 
         @media (prefers-reduced-motion: reduce) {
             html {
                 scroll-behavior: auto !important;
-            }
-
-            .pulse-subtle,
-            .animate-ping,
-            .hero-bg-anim,
-            .bubble {
-                animation: none !important;
             }
 
             .reveal,
@@ -338,7 +218,10 @@
 
             .card-hover,
             .card-hover:hover,
-            .card-hover::before {
+            .gallery-card,
+            .gallery-card:hover,
+            .gallery-card img,
+            .gallery-card:hover img {
                 transition: none !important;
                 transform: none !important;
             }
@@ -346,7 +229,7 @@
     </style>
 </head>
 
-<body class="bg-abyss text-slate-200 font-sans antialiased selection:bg-accent selection:text-abyss overflow-x-hidden">
+<body class="bg-abyss text-slate-200 font-sans antialiased selection:bg-accent selection:text-[#060B13] overflow-x-hidden">
 
     <!-- SKIP LINK ACCESSIBILITÀ -->
     <a href="#main-content"
@@ -401,10 +284,10 @@
                 class="absolute left-1/2 -translate-x-1/2 will-change-transform flex items-center transition-transform duration-75 ease-out"
                 style="top: 0px;">
                 <img src="assets/freediver-cyan.png" alt="" width="203" height="575"
-                    class="h-10 w-auto object-contain filter drop-shadow-[0_0_6px_rgba(20,184,166,0.8)]">
+                    class="h-10 w-auto object-contain filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                 <!-- Badge Profondità Dinamico -->
                 <span id="depth-counter"
-                    class="ml-1 px-1.5 py-0.5 rounded bg-abyss/90 border border-accent/40 text-[9px] font-mono font-bold text-accent shadow-md backdrop-blur-sm whitespace-nowrap tabular-nums">
+                    class="ml-1 px-1.5 py-0.5 rounded bg-surface/90 border border-white/10 text-[9px] font-mono font-medium text-accent whitespace-nowrap tabular-nums">
                     0m
                 </span>
             </div>
@@ -542,7 +425,7 @@
             <div class="absolute inset-0 z-0">
                 <img src="assets/hero-bg.jpg" alt="Apnea subacquea sul cavo nel blu" width="3648" height="2736"
                     fetchpriority="high"
-                    class="w-full h-full object-cover object-center hero-bg-anim filter brightness-75">
+                    class="w-full h-full object-cover object-center filter brightness-[0.72]">
                 <div class="absolute inset-0 hero-gradient"></div>
             </div>
 
@@ -559,18 +442,18 @@
                 <div class="max-w-4xl mx-auto">
                     <!-- Badge Credenziali -->
                     <div
-                        class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs sm:text-sm font-medium text-ocean-200 mb-8 shadow-xl">
-                        <span class="w-2 h-2 rounded-full bg-accent animate-ping" aria-hidden="true"></span>
+                        class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/10 backdrop-blur-md text-xs sm:text-sm font-medium text-slate-300 mb-6">
+                        <span class="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true"></span>
                         <span>Istruttore Certificato SSI Freediving · 1° Livello</span>
-                        <span class="text-white/40" aria-hidden="true">•</span>
-                        <span class="text-slate-300">Torino</span>
+                        <span class="text-white/30" aria-hidden="true">•</span>
+                        <span class="text-slate-400">Torino</span>
                     </div>
 
                     <!-- Main Heading -->
                     <h1
-                        class="reveal delay-100 text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 text-balance">
+                        class="reveal delay-100 text-4xl sm:text-6xl lg:text-7xl font-semibold text-white tracking-tight leading-[1.08] mb-6 text-balance">
                         Imparare ad ascoltarsi.<br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent via-ocean-300 to-sky-200">
+                        <span class="text-accent font-medium">
                             Immergersi con consapevolezza.
                         </span><br>
                         Vivere il mare.
@@ -586,22 +469,22 @@
                     </p>
 
                     <!-- Actions -->
-                    <div class="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <div class="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-3.5">
                         <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sui%20corsi%20di%20apnea"
                             target="_blank" rel="noopener noreferrer"
-                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-accent hover:bg-teal-400 text-abyss font-bold text-base px-8 py-4 rounded-full shadow-lg shadow-accent/20 transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
-                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-accent hover:bg-teal-300 text-[#060B13] font-semibold text-sm px-7 py-3.5 rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                                 <path
                                     d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
                             </svg>
-                            <span>Contattami su WhatsApp</span>
+                            <span>Parla con me su WhatsApp</span>
                         </a>
                         <a href="#corsi"
-                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold text-base px-8 py-4 rounded-full border border-white/20 backdrop-blur-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
-                            <span>Esplora i corsi</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/[0.05] hover:bg-white/[0.1] text-white font-medium text-sm px-6 py-3.5 rounded-xl border border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            <span>Esplora i percorsi</span>
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </a>
@@ -611,7 +494,7 @@
                 <!-- Stats Bar / I Miei Numeri (con Contatori Animati) -->
                 <div class="reveal delay-400 mt-16 pt-8 border-t border-white/10 w-full max-w-7xl mx-auto">
                     <div
-                        class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/15 text-left py-4 px-3 sm:px-6 bg-white/[0.03] backdrop-blur-md rounded-3xl border border-white/10 shadow-2xl">
+                        class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10 text-left py-4 px-3 sm:px-6 bg-surface/75 backdrop-blur-md rounded-2xl border border-white/[0.08]">
                         <div class="py-3 px-3 sm:px-6">
                             <div class="flex items-baseline tabular-nums">
                                 <span data-counter-target="35"
@@ -658,27 +541,31 @@
                 <p class="reveal text-center text-xs uppercase tracking-widest text-slate-400 mb-8 font-semibold">
                     Didattica &amp; collaborazioni</p>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto items-center">
-                    <!-- Logo SSI Freediving -->
-                    <div
-                        class="reveal delay-100 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-2xl h-28 sm:h-32 px-6 py-4 flex items-center justify-center transition-colors hover:border-accent/40 shadow-xl group">
+                    <!-- Logo SSI Freediving (Link esterno) -->
+                    <a href="https://www.divessi.com/it/home" target="_blank" rel="noopener noreferrer"
+                        aria-label="Visita il sito ufficiale SSI Freediving"
+                        title="Visita il sito ufficiale SSI Freediving (divessi.com)"
+                        class="reveal delay-100 bg-surface/60 hover:bg-surface border border-white/[0.08] hover:border-accent/40 rounded-xl h-24 px-6 py-4 flex items-center justify-center transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent cursor-pointer">
                         <img src="assets/logo-ssi-perfect.png" alt="SSI Freediving" width="516" height="125"
                             loading="lazy"
                             class="max-h-16 sm:max-h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <!-- Logo Sport&Natura -->
+                    </a>
+                    <!-- Logo Sport&Natura (Senza link) -->
                     <div
-                        class="reveal delay-200 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-2xl h-28 sm:h-32 px-6 py-4 flex items-center justify-center transition-colors hover:border-accent/40 shadow-xl group">
+                        class="reveal delay-200 bg-surface/60 border border-white/[0.08] rounded-xl h-24 px-6 py-4 flex items-center justify-center">
                         <img src="assets/logo-sport-natura-perfect.png" alt="ASD Sport&amp;Natura" width="245"
                             height="106" loading="lazy"
-                            class="max-h-16 sm:max-h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                            class="max-h-16 sm:max-h-20 w-auto max-w-full object-contain opacity-90">
                     </div>
-                    <!-- Logo Katabasis Torino -->
-                    <div
-                        class="reveal delay-300 bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-2xl h-28 sm:h-32 px-6 py-4 flex items-center justify-center transition-colors hover:border-accent/40 shadow-xl group">
+                    <!-- Logo Katabasis Torino (Link esterno) -->
+                    <a href="https://www.katabasis.it/torino/" target="_blank" rel="noopener noreferrer"
+                        aria-label="Visita il sito ufficiale Katabasis Torino"
+                        title="Visita il sito ufficiale Katabasis Torino (katabasis.it/torino)"
+                        class="reveal delay-300 bg-surface/60 hover:bg-surface border border-white/[0.08] hover:border-accent/40 rounded-xl h-24 px-6 py-4 flex items-center justify-center transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent cursor-pointer">
                         <img src="assets/logo-katabasis-dark.png" alt="Katabasis Freediving and Sailing Torino"
                             width="755" height="536" loading="lazy"
                             class="max-h-16 sm:max-h-20 w-auto max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>
@@ -688,7 +575,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="reveal text-center max-w-3xl mx-auto mb-16">
                     <span class="text-accent text-sm font-bold uppercase tracking-wider">La Filosofia</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 text-balance">
+                    <h2 class="text-2xl sm:text-3xl font-semibold text-white mt-2 text-balance">
                         Meno sforzo e più controllo.<br>
                         <span class="text-slate-400 font-serif italic">L’apnea non è solo trattenere il respiro.</span>
                     </h2>
@@ -704,9 +591,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Pilastro 1 -->
                     <div
-                        class="reveal delay-100 bg-abyss/80 border border-white/10 rounded-2xl p-8 card-hover relative overflow-hidden group">
+                        class="reveal delay-100 bg-surface border border-white/[0.08] rounded-xl p-7 card-hover group">
                         <div
-                            class="w-14 h-14 rounded-xl bg-ocean-900/60 border border-ocean-700/50 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                            class="w-11 h-11 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-accent mb-5">
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -724,9 +611,9 @@
 
                     <!-- Pilastro 2 -->
                     <div
-                        class="reveal delay-200 bg-abyss/80 border border-white/10 rounded-2xl p-8 card-hover relative overflow-hidden group">
+                        class="reveal delay-200 bg-surface border border-white/[0.08] rounded-xl p-7 card-hover group">
                         <div
-                            class="w-14 h-14 rounded-xl bg-ocean-900/60 border border-ocean-700/50 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                            class="w-11 h-11 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-accent mb-5">
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -753,9 +640,9 @@
 
                     <!-- Pilastro 3 -->
                     <div
-                        class="reveal delay-300 bg-abyss/80 border border-white/10 rounded-2xl p-8 card-hover relative overflow-hidden group">
+                        class="reveal delay-300 bg-surface border border-white/[0.08] rounded-xl p-7 card-hover group">
                         <div
-                            class="w-14 h-14 rounded-xl bg-ocean-900/60 border border-ocean-700/50 flex items-center justify-center text-accent mb-6 group-hover:scale-110 transition-transform">
+                            class="w-11 h-11 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-accent mb-5">
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -779,7 +666,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="reveal text-center max-w-3xl mx-auto mb-16">
                     <span class="text-accent text-sm font-bold uppercase tracking-wider">Attività &amp; Corsi</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 text-balance">
+                    <h2 class="text-2xl sm:text-3xl font-semibold text-white mt-2 text-balance">
                         I percorsi formativi
                     </h2>
                     <p class="mt-4 text-slate-300 text-base sm:text-lg text-pretty">
@@ -791,11 +678,11 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <!-- CARD 1: RAGAZZI & ADULTI TORINO -->
                     <div
-                        class="reveal delay-100 bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
+                        class="reveal delay-100 bg-surface border border-white/[0.08] rounded-xl p-7 card-hover flex flex-col justify-between">
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <span
-                                    class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-900/60 text-sky-300 border border-sky-600/40">
+                                    class="px-2.5 py-0.5 rounded text-xs font-medium bg-white/[0.06] text-slate-300 border border-white/10">
                                     Ragazzi · Adulti
                                 </span>
                                 <span class="text-xs text-slate-400">Ottobre – Maggio</span>
@@ -837,7 +724,7 @@
                         </div>
                         <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sui%20corsi%20di%20apnea%20alla%20Sisport%20di%20Torino"
                             target="_blank" rel="noopener noreferrer"
-                            class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            class="w-full inline-flex items-center justify-center gap-2 bg-white/[0.05] hover:bg-white/[0.1] text-white font-medium text-xs py-2.5 px-4 rounded-lg border border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                             <span>Richiedi informazioni o prenota una prova</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 aria-hidden="true">
@@ -849,11 +736,11 @@
 
                     <!-- CARD 2: SESSIONI TECNICHE VENARIA -->
                     <div
-                        class="reveal delay-200 bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
+                        class="reveal delay-200 bg-surface border border-white/[0.08] rounded-xl p-7 card-hover flex flex-col justify-between">
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <span
-                                    class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-900/60 text-emerald-300 border border-emerald-600/40">
+                                    class="px-2.5 py-0.5 rounded text-xs font-medium bg-white/[0.06] text-slate-300 border border-white/10">
                                     Tecnica e Profondità
                                 </span>
                                 <span class="text-xs text-slate-400">Appuntamento mensile</span>
@@ -894,7 +781,7 @@
                         </div>
                         <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sulle%20prossime%20sessioni%20a%2010m%20a%20Venaria%20Reale"
                             target="_blank" rel="noopener noreferrer"
-                            class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            class="w-full inline-flex items-center justify-center gap-2 bg-white/[0.05] hover:bg-white/[0.1] text-white font-medium text-xs py-2.5 px-4 rounded-lg border border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                             <span>Scopri le prossime date</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 aria-hidden="true">
@@ -906,11 +793,11 @@
 
                     <!-- CARD 3: USCITE ED ESPERIENZE IN MARE -->
                     <div
-                        class="reveal delay-100 bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
+                        class="reveal delay-100 bg-surface border border-white/[0.08] rounded-xl p-7 card-hover flex flex-col justify-between">
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <span
-                                    class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-900/60 text-amber-300 border border-amber-600/40">
+                                    class="px-2.5 py-0.5 rounded text-xs font-medium bg-white/[0.06] text-slate-300 border border-white/10">
                                     Acque Libere · Weekend
                                 </span>
                                 <span class="text-xs text-slate-400">Mag – Nov</span>
@@ -953,7 +840,7 @@
                         </div>
                         <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20informazioni%20sulle%20uscite%20in%20mare"
                             target="_blank" rel="noopener noreferrer"
-                            class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            class="w-full inline-flex items-center justify-center gap-2 bg-white/[0.05] hover:bg-white/[0.1] text-white font-medium text-xs py-2.5 px-4 rounded-lg border border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                             <span>Richiedi informazioni</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 aria-hidden="true">
@@ -965,12 +852,12 @@
 
                     <!-- CARD 4: LEZIONI PRIVATE & COACHING -->
                     <div
-                        class="reveal delay-200 bg-gradient-to-b from-marine/80 to-abyss border border-white/10 rounded-2xl p-8 card-hover flex flex-col justify-between">
+                        class="reveal delay-200 bg-surface border border-white/[0.08] rounded-xl p-7 card-hover flex flex-col justify-between">
                         <div>
                             <div class="flex items-center justify-between mb-4">
                                 <span
-                                    class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-900/60 text-purple-300 border border-purple-600/40">
-                                    Personalizzato
+                                    class="px-2.5 py-0.5 rounded text-xs font-medium bg-white/[0.06] text-slate-300 border border-white/10">
+                                    Sessione 1-to-1
                                 </span>
                                 <span class="text-xs text-slate-400">Su richiesta</span>
                             </div>
@@ -1011,7 +898,7 @@
                         </div>
                         <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20concordare%20una%20lezione%20privata%20di%20apnea"
                             target="_blank" rel="noopener noreferrer"
-                            class="w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-accent hover:text-abyss text-white font-semibold text-sm py-3 px-4 rounded-xl border border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                            class="w-full inline-flex items-center justify-center gap-2 bg-white/[0.05] hover:bg-white/[0.1] text-white font-medium text-xs py-2.5 px-4 rounded-lg border border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                             <span>Concorda una sessione</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 aria-hidden="true">
@@ -1030,7 +917,7 @@
                 <div class="reveal flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
                     <div>
                         <span class="text-accent text-sm font-bold uppercase tracking-wider">Galleria &amp; Video</span>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 text-balance">
+                        <h2 class="text-2xl sm:text-3xl font-semibold text-white mt-2 text-balance">
                             Dalla corsia in piscina ai 30&nbsp;metri nel blu
                         </h2>
                     </div>
@@ -1394,7 +1281,7 @@
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="reveal text-center mb-16">
                     <span class="text-accent text-sm font-bold uppercase tracking-wider">FAQ</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 text-balance">
+                    <h2 class="text-2xl sm:text-3xl font-semibold text-white mt-2 text-balance">
                         Domande Frequenti
                     </h2>
                     <p class="mt-4 text-slate-300 text-base">
@@ -1405,7 +1292,7 @@
                 <div class="reveal delay-100 space-y-4">
                     <!-- FAQ 1 -->
                     <details open
-                        class="group bg-white/[0.04] hover:bg-white/[0.06] border border-white/10 rounded-2xl transition-colors">
+                        class="group bg-surface hover:bg-surface/90 border border-white/[0.08] hover:border-white/15 rounded-xl transition-colors">
                         <summary
                             class="cursor-pointer p-6 text-lg font-bold text-white flex items-center justify-between gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                             <span>L’apnea è sicura per i ragazzi? Quanti allievi seguite in acqua?</span>
@@ -1427,7 +1314,7 @@
 
                     <!-- FAQ 2 -->
                     <details
-                        class="group bg-white/[0.04] hover:bg-white/[0.06] border border-white/10 rounded-2xl transition-colors">
+                        class="group bg-surface hover:bg-surface/90 border border-white/[0.08] hover:border-white/15 rounded-xl transition-colors">
                         <summary
                             class="cursor-pointer p-6 text-lg font-bold text-white flex items-center justify-between gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                             <span>Posso fare una lezione di prova prima di iscrivermi?</span>
@@ -1447,7 +1334,7 @@
 
                     <!-- FAQ 3 -->
                     <details
-                        class="group bg-white/[0.04] hover:bg-white/[0.06] border border-white/10 rounded-2xl transition-colors">
+                        class="group bg-surface hover:bg-surface/90 border border-white/[0.08] hover:border-white/15 rounded-xl transition-colors">
                         <summary
                             class="cursor-pointer p-6 text-lg font-bold text-white flex items-center justify-between gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                             <span>Serve saper nuotare come atleti agonisti per partecipare?</span>
@@ -1466,7 +1353,7 @@
 
                     <!-- FAQ 4 -->
                     <details
-                        class="group bg-white/[0.04] hover:bg-white/[0.06] border border-white/10 rounded-2xl transition-colors">
+                        class="group bg-surface hover:bg-surface/90 border border-white/[0.08] hover:border-white/15 rounded-xl transition-colors">
                         <summary
                             class="cursor-pointer p-6 text-lg font-bold text-white flex items-center justify-between gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                             <span>Quale attrezzatura è necessaria all’inizio?</span>
@@ -1486,7 +1373,7 @@
 
                     <!-- FAQ 5 -->
                     <details
-                        class="group bg-white/[0.04] hover:bg-white/[0.06] border border-white/10 rounded-2xl transition-colors">
+                        class="group bg-surface hover:bg-surface/90 border border-white/[0.08] hover:border-white/15 rounded-xl transition-colors">
                         <summary
                             class="cursor-pointer p-6 text-lg font-bold text-white flex items-center justify-between gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                             <span>Che certificato medico è richiesto?</span>
@@ -1511,7 +1398,7 @@
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                 <div class="reveal">
                     <span class="text-accent text-sm font-bold uppercase tracking-wider">Inizia il tuo percorso</span>
-                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-3 mb-6 text-balance">
+                    <h2 class="text-3xl sm:text-4xl font-semibold text-white mt-2 mb-4 text-balance">
                         Facciamo il primo respiro insieme.
                     </h2>
                     <p class="max-w-2xl mx-auto text-slate-300 text-base sm:text-lg mb-10 leading-relaxed text-pretty">
@@ -1525,9 +1412,9 @@
                     <!-- WhatsApp Card -->
                     <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20ricevere%20informazioni%20sui%20corsi%20di%20apnea"
                         target="_blank" rel="noopener noreferrer"
-                        class="reveal delay-100 bg-abyss/90 border border-emerald-500/30 hover:border-emerald-500 p-6 rounded-2xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
+                        class="reveal delay-100 bg-surface border border-white/[0.08] hover:border-emerald-500/40 p-5 rounded-xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">
                         <div
-                            class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            class="w-11 h-11 rounded-full bg-white/[0.04] text-slate-300 group-hover:text-emerald-400 group-hover:bg-emerald-500/15 flex items-center justify-center mb-3 transition-all duration-300 group-hover:scale-110">
                             <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                                 <path
                                     d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
@@ -1539,9 +1426,9 @@
 
                     <!-- Telefono Card -->
                     <a href="tel:+393917922516"
-                        class="reveal delay-200 bg-abyss/90 border border-white/10 hover:border-accent p-6 rounded-2xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+                        class="reveal delay-200 bg-surface border border-white/[0.08] hover:border-accent/40 p-5 rounded-xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
                         <div
-                            class="w-12 h-12 rounded-full bg-ocean-900/40 text-accent flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            class="w-11 h-11 rounded-full bg-white/[0.04] text-slate-300 group-hover:text-accent group-hover:bg-accent/15 flex items-center justify-center mb-3 transition-all duration-300 group-hover:scale-110">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1555,9 +1442,9 @@
 
                     <!-- Instagram Card -->
                     <a href="https://www.instagram.com/lorenzorasoli/" target="_blank" rel="noopener noreferrer"
-                        class="reveal delay-300 bg-abyss/90 border border-white/10 hover:border-pink-500/60 p-6 rounded-2xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400">
+                        class="reveal delay-300 bg-surface border border-white/[0.08] hover:border-pink-500/40 p-5 rounded-xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-400">
                         <div
-                            class="w-12 h-12 rounded-full bg-pink-500/15 text-pink-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            class="w-11 h-11 rounded-full bg-white/[0.04] text-slate-300 group-hover:text-pink-400 group-hover:bg-pink-500/15 flex items-center justify-center mb-3 transition-all duration-300 group-hover:scale-110">
                             <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                                 <path
                                     d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
@@ -1569,9 +1456,9 @@
 
                     <!-- Email Card -->
                     <a href="mailto:lorenzorasoli7@gmail.com?subject=Richiesta%20Informazioni%20Corsi%20Apnea"
-                        class="reveal delay-400 bg-abyss/90 border border-white/10 hover:border-ocean-400 p-6 rounded-2xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-400">
+                        class="reveal delay-400 bg-surface border border-white/[0.08] hover:border-sky-500/40 p-5 rounded-xl flex flex-col items-center card-hover group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-400">
                         <div
-                            class="w-12 h-12 rounded-full bg-ocean-900/40 text-ocean-300 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            class="w-11 h-11 rounded-full bg-white/[0.04] text-slate-300 group-hover:text-sky-400 group-hover:bg-sky-500/15 flex items-center justify-center mb-3 transition-all duration-300 group-hover:scale-110">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1620,7 +1507,7 @@
     <!-- FLOATING WHATSAPP BUTTON (Mobile & Desktop) -->
     <a href="https://wa.me/393917922516?text=Ciao%20Lorenzo,%20vorrei%20ricevere%20informazioni%20sui%20corsi%20di%20apnea"
         target="_blank" rel="noopener noreferrer"
-        class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white p-3.5 sm:px-5 sm:py-3.5 rounded-full shadow-2xl shadow-emerald-950/80 transition-transform duration-200 hover:scale-110 pulse-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+        class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white p-3.5 sm:px-4 sm:py-3 rounded-full shadow-lg transition-transform duration-150 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         aria-label="Scrivimi su WhatsApp">
         <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" aria-hidden="true">
             <path
@@ -1650,7 +1537,7 @@
                     </svg>
                 </button>
                 <button id="lightbox-close-btn" type="button"
-                    class="p-2.5 rounded-full bg-white/10 hover:bg-accent hover:text-abyss text-white border border-white/15 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    class="p-2 rounded-full bg-white/[0.08] hover:bg-accent hover:text-[#060B13] text-white border border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                     aria-label="Chiudi foto (Esc)">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
